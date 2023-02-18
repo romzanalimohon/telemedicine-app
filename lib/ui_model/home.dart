@@ -54,12 +54,13 @@ class _HomePageState extends State<HomePage> {
                 label: 'settings',
             ),
           ],
+
           onTap: (index){
             setState(() {
               _currentIndex = index;
             });
             },
-          selectedItemColor: Colors.amber[800],
+          //selectedItemColor: Colors.amber[800],
           //selectedIconTheme: ,
         ),
       ),
