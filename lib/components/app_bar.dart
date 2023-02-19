@@ -1,22 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:telemedecine_app/components/text_stile.dart';
 
 AppBar DoctorAppBar(){
   return AppBar(
-    title: Center(child: Text('Doctor', style: TextStyle(color: Colors.black))),
+    title: Center(child: Text('Doctor', style: appBarStyle())),
+    backgroundColor: Colors.white54,
+  );
+}
+
+AppBar StatusAppBar(){
+  return AppBar(
+    title: Center(child: Text('Status', style: appBarStyle())),
     backgroundColor: Colors.white54,
   );
 }
 
 AppBar ProfileAppBar(){
   return AppBar(
-    title: Center(child: Text('Profile', style: TextStyle(color: Colors.black))),
+    title: Center(child: Text('Profile', style: appBarStyle())),
     backgroundColor: Colors.white54,
   );
 }
 
 AppBar SettingsAppBar(){
   return AppBar(
-    title: Center(child: Text('Settings', style: TextStyle(color: Colors.black),)),
+    title: Center(child: Text('Settings', style: appBarStyle())),
     centerTitle: true,
     backgroundColor: Colors.white54,
     bottom: TabBar(
@@ -29,3 +37,5 @@ AppBar SettingsAppBar(){
     ),
   );
 }
+
+

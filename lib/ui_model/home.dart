@@ -3,6 +3,7 @@ import 'package:telemedecine_app/components/app_bar.dart';
 import 'package:telemedecine_app/ui_model/doctor_list.dart';
 import 'package:telemedecine_app/ui_model/profile.dart';
 import 'package:telemedecine_app/ui_model/settings.dart';
+import 'package:telemedecine_app/ui_model/status.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -13,16 +14,18 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  int _currentIndex = 0;
+  int _currentIndex = 1;
   final tabs = [
     DoctorList(),
+    Status(),
     Profile(),
-    Settings()
+    Settings(),
 
   ];
 
   final app_bar = [
     DoctorAppBar(),
+    StatusAppBar(),
     ProfileAppBar(),
     SettingsAppBar()
   ];
@@ -36,14 +39,20 @@ class _HomePageState extends State<HomePage> {
         appBar: app_bar[_currentIndex],
         body: tabs[_currentIndex],
         bottomNavigationBar: BottomNavigationBar(
-          currentIndex: 0,
+          currentIndex: _currentIndex,
           //type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.white,
-          selectedFontSize: 10,
+          //backgroundColor: Colors.white,
+          selectedItemColor: Color(0xffAA78E9),
+          unselectedItemColor: Colors.orangeAccent,
+          selectedFontSize: 16,
           items: [
             BottomNavigationBarItem(
-                icon: Icon(Icons.home),
+                icon: Icon(Icons.medical_information_outlined),
                 label: 'Doctors',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.signal_wifi_statusbar_4_bar),
+              label: 'Status',
             ),
             BottomNavigationBarItem(
                 icon: Icon(Icons.person),

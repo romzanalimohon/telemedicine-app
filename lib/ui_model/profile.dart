@@ -46,13 +46,19 @@ class Profile extends StatelessWidget {
 
                   ///doctors details
                   Padding(
-                    padding: const EdgeInsets.only(left: 20.0),
-                    child: Column(
-                      children: [
-                        Text('Romzan Ali Mohon'),
-                        Text('dasdasd@gmail.com'),
+                    padding: const EdgeInsets.only(left: 5.0, top: 23),
+                    child: SizedBox(
+                      height: 100,
+                      width: 200,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text('Romzan Ali Mohon', style: TextStyle(fontSize: 16),),
+                          Text('dasdasd@gmail.com', style: TextStyle(fontSize: 16),),
 
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ],

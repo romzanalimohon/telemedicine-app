@@ -1,7 +1,34 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
 
-class DoctorList extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
+class DoctorList extends StatefulWidget {
   const DoctorList({Key? key}) : super(key: key);
+
+  @override
+  State<DoctorList> createState() => _DoctorListState();
+}
+
+class _DoctorListState extends State<DoctorList> {
+
+  var data;
+  Future getData() async{
+    var uri = Uri.parse('https://jsonplaceholder.typicode.com/photos');
+    var response = await http.get(uri);
+     setState(() {
+       var decode = json.decode(response.body);
+       data = decode;
+       //print(data);
+     });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    this.getData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,16 +44,27 @@ class DoctorList extends StatelessWidget {
           //   child: Text('Doctors'),
           // )),
 
+          SizedBox(height: 20,),
+
             Expanded(
                 child: ListView.builder(
                   scrollDirection: Axis.vertical,
                     //shrinkWrap: true,
-                    itemCount: entries.length,
+                    itemCount: data == null? 0 : data.length,
                     itemBuilder: (context, int index){
                       return Card(
-                        margin: EdgeInsets.all(10),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          side: BorderSide(color: Colors.white24, width: 1)
+                        ),
+                        elevation: 5,
+                        margin: EdgeInsets.only(left: 17, right: 17, bottom: 16),
                         child: Container(
-                          color: Colors.grey,
+                          //color: Colors.white60,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+
+                          ),
                           child: Row(
                             children: [
                               ///image
@@ -39,32 +77,44 @@ class DoctorList extends StatelessWidget {
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(100),
                                         image: DecorationImage(
-                                          image: new ExactAssetImage('assets/images/rakoon.jpg'),
+                                          image: new NetworkImage(data[index]['url'].toString()),
                                           fit: BoxFit.cover,
                                         )
                                     ),
                                   ),
                                 ),
                               ),
-                              
+
                               ///doctors details
+                              // Padding(
+                              //   padding: const EdgeInsets.only(left: 20.0),
+                              //   child: Column(
+                              //     mainAxisAlignment: MainAxisAlignment.start,
+                              //     crossAxisAlignment: CrossAxisAlignment.start,
+                              //     children: [
+                              //       // Text('Mohammod'),
+                              //       // Text('Rahman'),
+                              //       // Text('internal'),
+                              //       // Text('ritcare'),
+                              //       // Text('office')
+                              //       Text(data[index]['title'])
+                              //     ],
+                              //   ),
+                              // ),
+
                               Padding(
-                                padding: const EdgeInsets.only(left: 20.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('Mohammod'),
-                                    Text('Rahman'),
-                                    Text('internal'),
-                                    Text('ritcare'),
-                                    Text('office')
-                                  ],
+                                padding: const EdgeInsets.only(left: 20.0, top: 20),
+                                child: SizedBox(
+                                  height: 100,
+                                  width: 150,
+                                  child: Text(data[index]['title'], style: GoogleFonts.lato(
+                                    textStyle: TextStyle(fontSize: 16)
+                                  ),),
                                 ),
                               ),
 
                               Padding(
-                                padding: const EdgeInsets.only(left: 100.0),
+                                padding: const EdgeInsets.only(left: 40.0),
                                 child: SizedBox(
                                   height: 70,
                                   width: 70,
