@@ -28,14 +28,14 @@ class _LoginPageState extends State<LoginPage> {
                 //const SizedBox(height: 10),
                 // logo
                 SizedBox(
-                  height: 100,
-                  width: 100,
+                  height: 80,
+                  width: 130,
                   child: NeuBox(child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       image: DecorationImage(
-                        image: new ExactAssetImage('assets/images/rakoon.jpg'),
-                        fit: BoxFit.cover,
+                        image: new ExactAssetImage('assets/images/trust.jpg'),
+                        fit: BoxFit.fill,
                       )
                     ),
                   )),

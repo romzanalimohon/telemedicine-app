@@ -3,7 +3,7 @@ import 'package:telemedecine_app/components/text_stile.dart';
 
 AppBar DoctorAppBar(){
   return AppBar(
-    title: Center(child: Text('Doctor', style: appBarStyle())),
+    title: Center(child: Text('Consultant', style: appBarStyle())),
     backgroundColor: Colors.white54,
   );
 }
