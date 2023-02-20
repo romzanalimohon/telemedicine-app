@@ -1,49 +1,140 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:telemedecine_app/components/text_stile.dart';
+import 'package:http/http.dart' as http;
 
-class Status extends StatelessWidget {
+class Status extends StatefulWidget {
   const Status({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    List number = [1,2,3,4,5,6,7,8];
-    return Column(
-      children: [
-        SizedBox(height: 5,),
-        Text('USA Student Visa Steps', style: statusStile(),),
-        SizedBox(height: 5,),
-        Container(
-          color: Colors.brown,
-          height: 100,
-          child: Row(
-            children: [
-              SizedBox(width: 10,),
-              Text('Step', style: statusStile1(),),
-              SizedBox(width: 5,),
-              Container(
-                height: 40,
-                width: 40,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
-                  color: Colors.red
-                ),
-                child: Center(child: Text(number[0].toString(), style: statusStile1(),)),
-              ),
-              SizedBox(width: 10,),
+  State<Status> createState() => _StatusState();
+}
 
-              const VerticalDivider(
-                width: 20,
-                thickness: 1,
-                indent: 30,
-                endIndent: 30,
-                color: Colors.black45,
-              ),
-              SizedBox(width: 5,),
-              Text('Document Submission', style: statusStile1(),)
-            ],
+class _StatusState extends State<Status> {
+  // Future getStatus() async{
+  //
+  //   final String response = await rootBundle.loadString('assets/trustdocument.json');
+  //   final decode = await json.decode(response);
+  //   setState(() {
+  //
+  //     data = decode;
+  //     print(data);
+  //   });
+  // }
+
+  var data;
+  Future getData() async {
+    var uri = Uri.parse('https://jsonplaceholder.typicode.com/posts');
+    var response = await http.get(uri);
+    setState(() {
+      var decode = json.decode(response.body);
+      data = decode;
+      //print(data);
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    this.getData();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    return SizedBox(
+      height: size.height,
+      child: Column(
+        children: [
+          SizedBox(
+            height: 10,
           ),
-        )
-      ],
+          Text(
+            'USA Student Visa Steps',
+            style: statusStile(),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Expanded(
+            child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                //shrinkWrap: true,
+                itemCount: data == null ? 0 : data.length,
+                itemBuilder: (context, i) {
+                  return Column(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(top: 10, bottom: 10, left: 5, right: 5),
+                        margin: EdgeInsets.only(left: 5, right: 5),
+                        color: i%2 == 0? Colors.black12 : Colors.white10,
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              'Step',
+                              style: statusStile1(),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Container(
+                              height: 40,
+                              width: 40,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(100),
+                                color: i%2 == 0? Colors.white : Colors.black12,),
+                              child: Center(
+                                  child: Text(
+                                data[i]['id'].toString(),
+                                style: statusStile1(),
+                              )),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            const VerticalDivider(
+                              width: 20,
+                              thickness: 1,
+                              indent: 10,
+                              endIndent: 40,
+                              color: Colors.black45,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Flexible(
+                              // height: 270,
+                              // width: size.width * .62,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    data[i]['title'],
+                                    style: statusStile1(),
+                                  ),
+                                  Text(
+                                    data[i]['body'],
+                                    style: statusStile2(),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 10,)
+                    ],
+                  );
+                }),
+          ),
+        ],
+      ),
     );
   }
 }

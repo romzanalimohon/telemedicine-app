@@ -19,6 +19,7 @@ TextStyle statusStile(){
 TextStyle statusStile1(){
   return GoogleFonts.libreFranklin(
       fontSize: 20,
+      fontWeight: FontWeight.bold,
       color: Colors.black
   );
 }
@@ -27,5 +28,12 @@ TextStyle statusStile2(){
   return GoogleFonts.libreFranklin(
       fontSize: 16,
       color: Colors.black
+  );
+}
+
+TextStyle linkStyle(){
+  return GoogleFonts.libreFranklin(
+      fontSize: 16,
+      color: Colors.greenAccent
   );
 }

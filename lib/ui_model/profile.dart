@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:telemedecine_app/components/edit_profile.dart';
+import 'package:telemedecine_app/components/text_stile.dart';
 
 class Profile extends StatelessWidget {
   const Profile({Key? key}) : super(key: key);
@@ -49,13 +50,13 @@ class Profile extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 5.0, top: 23),
                     child: SizedBox(
                       height: 100,
-                      width: 200,
+
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text('Romzan Ali Mohon', style: TextStyle(fontSize: 16),),
-                          Text('dasdasd@gmail.com', style: TextStyle(fontSize: 16),),
+                          Text('Romzan Ali Mohon', style: statusStile()),
+                          Text('dasdasd@gmail.com', style: linkStyle()),
 
                         ],
                       ),
@@ -66,36 +67,72 @@ class Profile extends StatelessWidget {
             ),
           ),
 
-                ListTile(
-                  title: Text('Date of Birth'),
-                  subtitle: Text('88-88-88'),
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10.0, top: 20),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Date of Birth', style: statusStile1(),),
+                        Text('88-88-88-88', style: statusStile2(),)
+                      ],
+                    ),
+                  ),
                 ),
                 Divider(
                   thickness: 1,
                   indent: 10,
                   endIndent: 10,
                 ),
-                ListTile(
-                  title: Text('Cell Phone'),
-                  subtitle: Text('88-88-88'),
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10.0, top: 20),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Cell Phone', style: statusStile1(),),
+                        Text('88-88-88-88', style: statusStile2(),)
+                      ],
+                    ),
+                  ),
                 ),
                 Divider(
                   thickness: 1,
                   indent: 10,
                   endIndent: 10,
                 ),
-                ListTile(
-                  title: Text('Home Phone'),
-                  subtitle: Text('88-88-88'),
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10.0, top: 20),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Home Phone', style: statusStile1(),),
+                        Text('88-88-88-88', style: statusStile2(),)
+                      ],
+                    ),
+                  ),
                 ),
                 Divider(
                   thickness: 1,
                   indent: 10,
                   endIndent: 10,
                 ),
-                ListTile(
-                  title: Text('Address'),
-                  subtitle: Text('dhaka\nmirpur\nmirpur'),
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10.0, top: 20),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Address', style: statusStile1(),),
+                        Text('88-88-88-88', style: statusStile2(),)
+                      ],
+                    ),
+                  ),
                 ),
                 Divider(
                   thickness: 1,
@@ -106,53 +143,52 @@ class Profile extends StatelessWidget {
                 Container(
                     child: Padding(
                       padding: const EdgeInsets.only(left: 15.0, top: 20),
-                      child: Text('Delete Account'),
+                      child: Text('Delete Account', style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),),
                     )),
 
 
-                // Container(
-                //   margin: EdgeInsets.all(20),
-                //   height: 50,
-                //   width: 370,
-                //   decoration: BoxDecoration(
-                //     color: Colors.blue,
-                //     borderRadius: BorderRadius.circular(50),
-                //   ),
-                //   child: Center(child: Text('Edit Profile', style: TextStyle(fontSize: 25),)),
-                // ),
+                SizedBox(height: 20,),
 
 
                 Center(
-                  child: ElevatedButton(
+                  child: Container(
+                    height: 48,
+                    width: size.width*.45,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: Colors.green
+                    ),
+                    child: ElevatedButton(
 
-                      child: Text('edit profile'),
-                      onPressed: (){
-                        showModalBottomSheet(context: context, builder: (BuildContext context){
-                          return SizedBox(
-                            height: 400,
-                            child: Container(
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(right: 8.0),
-                                      child: ElevatedButton(
-                                          child: Text('X'),
-                                          onPressed: (){
-                                            Navigator.pop(context);
-                                          },
+                        child: Text('Edit Profile', style: TextStyle(color: Colors.white, fontSize: 28),),
+                        onPressed: (){
+                          showModalBottomSheet(context: context, builder: (BuildContext context){
+                            return SizedBox(
+                              height: 400,
+                              child: Container(
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(right: 8.0),
+                                        child: ElevatedButton(
+                                            child: Text('X'),
+                                            onPressed: (){
+                                              Navigator.pop(context);
+                                            },
+                                        ),
                                       ),
-                                    ),
 
 
-                                    EditProfile(),
-                                  ],
+                                      EditProfile(),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          );
-                        });
-                      },
+                            );
+                          });
+                        },
+                    ),
                   ),
                 )
 
