@@ -32,205 +32,207 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return Column(
-      children: [
-        Card(
-          margin: EdgeInsets.all(10),
-          child: Container(
-            height: size.height*.15,
-            color: Colors.black,
-            child: Row(
-              children: [
-                ///image
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: SizedBox(
-                    height: 70,
-                    width: 70,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          image: DecorationImage(
-                            image: new ExactAssetImage('assets/images/rakoon.jpg'),
-                            fit: BoxFit.cover,
-                          )
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Card(
+            margin: EdgeInsets.all(10),
+            child: Container(
+              height: size.height*.15,
+              color: Colors.black,
+              child: Row(
+                children: [
+                  ///image
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: SizedBox(
+                      height: 70,
+                      width: 70,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            image: DecorationImage(
+                              image: new ExactAssetImage('assets/images/rakoon.jpg'),
+                              fit: BoxFit.cover,
+                            )
+                        ),
                       ),
                     ),
                   ),
-                ),
 
-                ///doctors details
-                Padding(
-                  padding: const EdgeInsets.only(left: 5.0, top: 23),
-                  child: SizedBox(
-                    height: 100,
+                  ///doctors details
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5.0, top: 23),
+                    child: SizedBox(
+                      height: 100,
 
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text('hghhg', style: TextStyle(fontSize: 32, color: Colors.white)),
-                        Text('dasdasd@gmail.com', style: linkStyle()),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text('hghhg', style: TextStyle(fontSize: 32, color: Colors.white)),
+                          Text('dasdasd@gmail.com', style: linkStyle()),
 
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
-        SizedBox(height: 15,),
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Container(
-            height: size.height*.44,
-            color: Colors.black,
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Container(
-                        height: size.height*.1,
-                        width: size.width*.4,
-                        color: Colors.white,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Date of Birth', style: TextStyle(fontSize: 25, color: Colors.black),),
-                              Text('88-88-88-88', style: TextStyle(fontSize: 20, color: Colors.black),)
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Container(
-                        height: size.height*.1,
-                        width: size.width*.4,
-                        color: Colors.white,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Cell Phone', style: TextStyle(fontSize: 25, color: Colors.black),),
-                              Text('88-88-88-88', style: TextStyle(fontSize: 20, color: Colors.black),)
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-
-
-
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Container(
-                        height: size.height*.1,
-                        width: size.width*.4,
-                        color: Colors.white,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Home Phone', style: TextStyle(fontSize: 25, color: Colors.black),),
-                              Text('88-88-88-88', style: TextStyle(fontSize: 20, color: Colors.black),)
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Container(
-                        height: size.height*.1,
-                        width: size.width*.4,
-                        color: Colors.white,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Date of Birth', style: TextStyle(fontSize: 25, color: Colors.black),),
-                              Text('88-88-88-88', style: TextStyle(fontSize: 20, color: Colors.black),)
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-
-
-                SizedBox(height: 20,),
-
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GestureDetector(
-                    onTap: (){
-                      showModalBottomSheet(context: context, builder: (BuildContext context){
-                        return SizedBox(
-                          height: 400,
-                          child: Container(
-                            child: SingleChildScrollView(
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 8.0),
-                                    child: ElevatedButton(
-                                      child: Text('X'),
-                                      onPressed: (){
-                                        Navigator.pop(context);
-                                      },
-                                    ),
-                                  ),
-
-
-                                  EditProfile(),
-                                ],
-                              ),
+          SizedBox(height: 15,),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Container(
+              height: size.height*.44,
+              color: Colors.black,
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Container(
+                          height: size.height*.1,
+                          width: size.width*.4,
+                          color: Colors.white,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Date of Birth', style: TextStyle(fontSize: 25, color: Colors.black),),
+                                Text('88-88-88-88', style: TextStyle(fontSize: 20, color: Colors.black),)
+                              ],
                             ),
                           ),
-                        );
-                      });
-                    },
-                    child: Center(
-                      child: Container(
-                        height: size.height*.08,
-                        width: size.width*.4,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          color: Colors.brown,
                         ),
-                        child: Center(child: Text("Edit Profile", style: statusStile(),)),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Container(
+                          height: size.height*.1,
+                          width: size.width*.4,
+                          color: Colors.white,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Cell Phone', style: TextStyle(fontSize: 25, color: Colors.black),),
+                                Text('88-88-88-88', style: TextStyle(fontSize: 20, color: Colors.black),)
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+
+
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Container(
+                          height: size.height*.1,
+                          width: size.width*.4,
+                          color: Colors.white,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Home Phone', style: TextStyle(fontSize: 25, color: Colors.black),),
+                                Text('88-88-88-88', style: TextStyle(fontSize: 20, color: Colors.black),)
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Container(
+                          height: size.height*.1,
+                          width: size.width*.4,
+                          color: Colors.white,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Date of Birth', style: TextStyle(fontSize: 25, color: Colors.black),),
+                                Text('88-88-88-88', style: TextStyle(fontSize: 20, color: Colors.black),)
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+
+                  SizedBox(height: 20,),
+
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GestureDetector(
+                      onTap: (){
+                        showModalBottomSheet(context: context, builder: (BuildContext context){
+                          return SizedBox(
+                            height: 400,
+                            child: Container(
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 8.0),
+                                      child: ElevatedButton(
+                                        child: Text('X'),
+                                        onPressed: (){
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                    ),
+
+
+                                    EditProfile(),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        });
+                      },
+                      child: Center(
+                        child: Container(
+                          height: size.height*.08,
+                          width: size.width*.4,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            color: Colors.brown,
+                          ),
+                          child: Center(child: Text("Edit Profile", style: statusStile(),)),
+                        ),
                       ),
                     ),
-                  ),
-                )
+                  )
 
 
 
 
-              ],
+                ],
+              ),
             ),
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 

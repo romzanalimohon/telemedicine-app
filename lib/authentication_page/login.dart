@@ -38,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
 
         var data = jsonDecode(response.body.toString());
         print(data['Token'].toString());
-        print(data);
+        print(data['student']);
         print('Login successfully');
 
       }else {
