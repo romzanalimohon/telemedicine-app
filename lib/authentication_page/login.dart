@@ -1,9 +1,12 @@
+import 'dart:convert';
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:telemedecine_app/authentication_page/register.dart';
 import 'package:telemedecine_app/components/nueBox.dart';
-import 'package:telemedecine_app/components/text_field.dart';
-import 'package:telemedecine_app/ui_model/doctor_list.dart';
 import 'package:telemedecine_app/ui_model/home.dart';
+import 'package:telemedecine_app/ui_model/profile.dart';
 
 
 class LoginPage extends StatefulWidget {
@@ -14,6 +17,39 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  
+  
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  void login(String email , password) async {
+
+    try{
+
+      Response response = await post(
+          Uri.parse('https://consultant.xprtx.net/public/api/auth/login'),
+          body: {
+            'email' : email,
+            'password' : password
+          }
+      );
+
+      if(response.statusCode == 200){
+
+        var data = jsonDecode(response.body.toString());
+        print(data['Token'].toString());
+        print(data);
+        print('Login successfully');
+
+      }else {
+        print('failed');
+      }
+    }catch(e){
+      print(e.toString());
+    }
+  }
+  
+  
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context);
@@ -49,28 +85,49 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 25),
 
                 // username textfield
-                MyTextField(
-                  hintText: 'Username',
-                  obscureText: false,
-                  controller: null,
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: TextField(
+                    controller: emailController,
+                    decoration: const InputDecoration(
+                      labelText: 'enter email',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
 
                 const SizedBox(height: 10),
 
                 // password textfield
-                MyTextField(
-                  controller: null,
-                  hintText: 'Password',
-                  obscureText: true,
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: TextField(
+                    controller: passwordController,
+                    decoration: const InputDecoration(
+                      labelText: 'enter password',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
 
                 const SizedBox(height: 25),
 
                 GestureDetector(
                   onTap: (){
-                    setState(() {
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
-                    });
+                    // setState(() {
+                    //   Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
+                    // });
+
+                    login(emailController.text.toString(), passwordController.text.toString());
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
                   },
                   child: Container(
                     height: 50,

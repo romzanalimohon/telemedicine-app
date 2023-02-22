@@ -12,7 +12,7 @@ TextStyle appBarStyle(){
 TextStyle statusStile(){
   return GoogleFonts.libreFranklin(
       fontSize: 25,
-      color: Colors.black
+      color: Colors.white
   );
 }
 
@@ -33,7 +33,7 @@ TextStyle statusStile2(){
 
 TextStyle linkStyle(){
   return GoogleFonts.libreFranklin(
-      fontSize: 16,
-      color: Colors.greenAccent
+      fontSize: 19,
+      color: Colors.white
   );
 }

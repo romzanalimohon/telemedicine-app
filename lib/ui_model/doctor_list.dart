@@ -58,7 +58,7 @@ class _DoctorListState extends State<DoctorList> {
                           side: BorderSide(color: Colors.white24, width: 1)
                         ),
                         elevation: 5,
-                        margin: EdgeInsets.only(left: 17, right: 17, bottom: 16),
+                        margin: EdgeInsets.only(left: 5, right: 5, bottom: 16),
                         child: Container(
                           //color: Colors.white60,
                           decoration: BoxDecoration(
@@ -106,7 +106,7 @@ class _DoctorListState extends State<DoctorList> {
                                 padding: const EdgeInsets.only(left: 20.0, top: 20),
                                 child: SizedBox(
                                   height: 100,
-                                  width: 150,
+                                  width: 130,
                                   child: Text(data[index]['title'], style: GoogleFonts.lato(
                                     textStyle: TextStyle(fontSize: 16)
                                   ),),
@@ -114,7 +114,7 @@ class _DoctorListState extends State<DoctorList> {
                               ),
 
                               Padding(
-                                padding: const EdgeInsets.only(left: 40.0),
+                                padding: const EdgeInsets.only(left: 20.0),
                                 child: SizedBox(
                                   height: 70,
                                   width: 70,

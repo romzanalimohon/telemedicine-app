@@ -1,4 +1,8 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:telemedecine_app/components/text_field.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -9,6 +13,47 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController mobileController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController password_confirmationController = TextEditingController();
+
+  Future<void> submitData() async{
+    final name = nameController.text;
+    final email = emailController.text;
+    final mobile = mobileController.text;
+    final password = passwordController.text;
+    final password_confirmation = password_confirmationController.text;
+
+      final body = {
+        "name": name,
+        "email": email,
+        "mobile": mobile,
+        "password": password,
+        "password_confirmation": password_confirmation
+      };
+      //submit data to the server
+      final url = 'https://consultant.xprtx.net/public/api/auth/registration';
+      final uri = Uri.parse(url);
+      final response = await http.post(uri,
+          body: jsonEncode(body),
+          headers: {'Content-Type': 'application/json'}
+      );
+      if(response.statusCode == 200){
+        // usernameController.text = '';
+        // passwordController.text = '';
+        print('creation success');
+        print('uploaded');
+      }else{
+        print('creation failed');
+        //print(response.body);
+      }
+    print('registration success');
+      print(response.body);
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -25,7 +70,7 @@ class _RegisterPageState extends State<RegisterPage> {
               Positioned(
                   top: 10.0,
                   left: 15,
-                  child: Text('About you', style: TextStyle(fontSize: 20, color: Colors.black),),
+                  child: Text('Registration Info', style: TextStyle(fontSize: 20, color: Colors.black),),
               ),
               Positioned(
                 top: 17,
@@ -35,15 +80,16 @@ class _RegisterPageState extends State<RegisterPage> {
               Positioned(
                 top: 50,
                 left: 15,
-                child: Text('First Name', style: TextStyle(fontSize: 13, color: Colors.black),),),
+                child: Text('Name', style: TextStyle(fontSize: 13, color: Colors.black),),),
               Positioned(
-                  top: 70,
+                  top: 65,
                   //left: 15,
                   child: ConstrainedBox(
-                constraints: BoxConstraints.expand(height: 200, width: 200),
+                constraints: BoxConstraints.expand(height: 200, width: size.width*.95),
                 child: Padding(
                   padding: const EdgeInsets.only(left: 15.0, top: 2),
                   child: TextField(
+                    controller: nameController,
                     decoration: InputDecoration(
                         labelText: '',
                         border: OutlineInputBorder()
@@ -56,17 +102,18 @@ class _RegisterPageState extends State<RegisterPage> {
 
 
               Positioned(
-                top: 50,
-                left: 214,
-                child: Text('Last Name', style: TextStyle(fontSize: 13, color: Colors.black),),),
+                top: 148,
+                left: 15,
+                child: Text('Email', style: TextStyle(fontSize: 13, color: Colors.black),),),
               Positioned(
-                  top: 70,
-                  left: 200,
+                  top: 163,
+                  left: 0,
                   child: ConstrainedBox(
-                    constraints: BoxConstraints.expand(height: 200, width: 200),
+                    constraints: BoxConstraints.expand(height: 200, width: size.width*.95),
                     child: Padding(
                       padding: const EdgeInsets.only(left: 15.0, top: 2),
                       child: TextField(
+                        controller: emailController,
                         decoration: InputDecoration(
                             labelText: '',
                             border: OutlineInputBorder()
@@ -78,18 +125,23 @@ class _RegisterPageState extends State<RegisterPage> {
 
 
 
+
+
+
+
               Positioned(
-                top: 150,
+                top: 238,
                 left: 15,
-                child: Text('First Name', style: TextStyle(fontSize: 13, color: Colors.black),),),
+                child: Text('Mobile No', style: TextStyle(fontSize: 13, color: Colors.black),),),
               Positioned(
-                  top: 165,
-                  //left: 15,
+                  top: 253,
+                  left: 0,
                   child: ConstrainedBox(
-                    constraints: BoxConstraints.expand(height: 200, width: 200),
+                    constraints: BoxConstraints.expand(height: 200, width: size.width*.95),
                     child: Padding(
                       padding: const EdgeInsets.only(left: 15.0, top: 2),
                       child: TextField(
+                        controller: mobileController,
                         decoration: InputDecoration(
                             labelText: '',
                             border: OutlineInputBorder()
@@ -99,110 +151,19 @@ class _RegisterPageState extends State<RegisterPage> {
                   )),
 
 
-
-
               Positioned(
-                top: 150,
-                left: 214,
-                child: Text('Last Name', style: TextStyle(fontSize: 13, color: Colors.black),),),
-              Positioned(
-                  top: 165,
-                  left: 200,
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints.expand(height: 200, width: 200),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 15.0, top: 2),
-                      child: TextField(
-                        decoration: InputDecoration(
-                            labelText: '',
-                            border: OutlineInputBorder()
-                        ),
-                      ),
-                    ),
-                  )),
-
-
-
-
-              ///for contact
-              Positioned(
-                top: 250.0,
+                top: 323,
                 left: 15,
-                child: Text('Contact', style: TextStyle(fontSize: 20, color: Colors.black),),
-              ),
+                child: Text('password', style: TextStyle(fontSize: 13, color: Colors.black),),),
               Positioned(
-                top: 257,
-                left: 15,
-                child: Text('_____________________________________________________', style: TextStyle(fontSize: 16, color: Colors.black),),
-              ),
-              Positioned(
-                top: 300,
-                left: 15,
-                child: Text('First Name', style: TextStyle(fontSize: 13, color: Colors.black),),),
-              Positioned(
-                  top: 320,
-                  //left: 15,
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints.expand(height: 200, width: 200),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 15.0, top: 2),
-                      child: TextField(
-                        decoration: InputDecoration(
-                            labelText: '',
-                            border: OutlineInputBorder()
-                        ),
-                      ),
-                    ),
-                  )),
-
-
-
-
-              Positioned(
-                top: 300,
-                left: 214,
-                child: Text('Last Name', style: TextStyle(fontSize: 13, color: Colors.black),),),
-              Positioned(
-                  top: 320,
-                  left: 200,
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints.expand(height: 200, width: 200),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 15.0, top: 2),
-                      child: TextField(
-                        decoration: InputDecoration(
-                            labelText: '',
-                            border: OutlineInputBorder()
-                        ),
-                      ),
-                    ),
-                  )),
-
-
-
-              ///address
-              Positioned(
-                top: 400.0,
-                left: 15,
-                child: Text('Address', style: TextStyle(fontSize: 20, color: Colors.black),),
-              ),
-              Positioned(
-                top: 405,
-                left: 15,
-                child: Text('__________________________________________', style: TextStyle(fontSize: 20, color: Colors.black),),
-              ),
-              Positioned(
-                top: 435,
-                left: 15,
-                child: Text('Address Line 1', style: TextStyle(fontSize: 13, color: Colors.black),),),
-              Positioned(
-                  top: 450,
+                  top: 343,
                   //left: 15,
                   child: ConstrainedBox(
                     constraints: BoxConstraints.expand(height: 200, width: size.width*.95),
                     child: Padding(
                       padding: const EdgeInsets.only(left: 15.0, top: 2),
                       child: TextField(
+                        controller: passwordController,
                         decoration: InputDecoration(
                             labelText: '',
                             border: OutlineInputBorder()
@@ -212,39 +173,18 @@ class _RegisterPageState extends State<RegisterPage> {
                   )),
 
               Positioned(
-                top: 530,
+                top: 418,
                 left: 15,
-                child: Text('Address Line 1', style: TextStyle(fontSize: 13, color: Colors.black),),),
+                child: Text('confirm_password', style: TextStyle(fontSize: 13, color: Colors.black),),),
               Positioned(
-                  top: 544,
+                  top: 433,
                   //left: 15,
                   child: ConstrainedBox(
                     constraints: BoxConstraints.expand(height: 200, width: size.width*.95),
                     child: Padding(
                       padding: const EdgeInsets.only(left: 15.0, top: 2),
                       child: TextField(
-                        decoration: InputDecoration(
-                            labelText: '',
-                            border: OutlineInputBorder()
-                        ),
-                      ),
-                    ),
-                  )),
-
-
-
-              Positioned(
-                top: 620,
-                left: 15,
-                child: Text('First Name', style: TextStyle(fontSize: 13, color: Colors.black),),),
-              Positioned(
-                  top: 635,
-                  //left: 15,
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints.expand(height: 200, width: 200),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 15.0, top: 2),
-                      child: TextField(
+                        controller: password_confirmationController,
                         decoration: InputDecoration(
                             labelText: '',
                             border: OutlineInputBorder()
@@ -256,61 +196,34 @@ class _RegisterPageState extends State<RegisterPage> {
 
 
 
-              Positioned(
-                top: 620,
-                left: 214,
-                child: Text('Last Name', style: TextStyle(fontSize: 13, color: Colors.black),),),
-              Positioned(
-                  top: 635,
-                  left: 200,
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints.expand(height: 200, width: 200),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 15.0, top: 2),
-                      child: TextField(
-                        decoration: InputDecoration(
-                            labelText: '',
-                            border: OutlineInputBorder()
-                        ),
-                      ),
-                    ),
-                  )),
 
 
+              // Positioned(
+              //   top: 830,
+              //   left: 20,
+              //   child: GestureDetector(
+              //     onTap: (){
+              //       submitData();
+              //     },
+              //     child: Container(
+              //       height: 50,
+              //       width: 370,
+              //       decoration: BoxDecoration(
+              //       color: Colors.blue,
+              //       borderRadius: BorderRadius.circular(10),
+              //     ),
+              //     child: Center(child: Text('Register', style: TextStyle(fontSize: 25, color: Colors.black),)),
+              // ),
+              //   ),)
 
               Positioned(
-                top: 720,
-                left: 15,
-                child: Text('First Name', style: TextStyle(fontSize: 13, color: Colors.black),),),
-              Positioned(
-                  top: 735,
-                  //left: 15,
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints.expand(height: 200, width: 200),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 15.0, top: 2),
-                      child: TextField(
-                        decoration: InputDecoration(
-                            labelText: '',
-                            border: OutlineInputBorder()
-                        ),
-                      ),
-                    ),
-                  )),
-
-
-              Positioned(
-                top: 830,
+                top: 500,
                 left: 20,
-                child: Container(
-                  height: 50,
-                  width: 370,
-                  decoration: BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(10),
+                child: ElevatedButton(
+                  child: Text('register'),
+                  onPressed: submitData,
                 ),
-                child: Center(child: Text('Register', style: TextStyle(fontSize: 25, color: Colors.black),)),
-              ),)
+              )
 
 
               // Column(

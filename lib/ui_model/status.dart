@@ -53,7 +53,7 @@ class _StatusState extends State<Status> {
           ),
           Text(
             'USA Student Visa Steps',
-            style: statusStile(),
+            style: TextStyle(fontSize: 30, color: Colors.black),
           ),
           SizedBox(
             height: 20,
