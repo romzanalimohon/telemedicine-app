@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:telemedecine_app/for_video_calling/page/index.dart';
 class DoctorList extends StatefulWidget {
   const DoctorList({Key? key}) : super(key: key);
 
@@ -14,7 +15,8 @@ class _DoctorListState extends State<DoctorList> {
 
   var data;
   Future getData() async{
-    var uri = Uri.parse('https://jsonplaceholder.typicode.com/photos');
+    //var uri = Uri.parse('https://jsonplaceholder.typicode.com/photos');
+    var uri = Uri.parse("https://consultant.xprtx.net/public/api/auth/getConsultant");
     var response = await http.get(uri);
      setState(() {
        var decode = json.decode(response.body);
@@ -77,7 +79,7 @@ class _DoctorListState extends State<DoctorList> {
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(100),
                                         image: DecorationImage(
-                                          image: new NetworkImage(data[index]['url'].toString()),
+                                          image: AssetImage("assets/images/rakoon.jpg"),
                                           fit: BoxFit.cover,
                                         )
                                     ),
@@ -107,8 +109,8 @@ class _DoctorListState extends State<DoctorList> {
                                 child: SizedBox(
                                   height: 100,
                                   width: 130,
-                                  child: Text(data[index]['title'], style: GoogleFonts.lato(
-                                    textStyle: TextStyle(fontSize: 16)
+                                  child: Text(data[index]['name'], style: GoogleFonts.lato(
+                                    textStyle: TextStyle(fontSize: 20)
                                   ),),
                                 ),
                               ),
@@ -118,13 +120,18 @@ class _DoctorListState extends State<DoctorList> {
                                 child: SizedBox(
                                   height: 70,
                                   width: 70,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(100),
-                                        image: DecorationImage(
-                                          image: NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQO1YnvQ15XyjnY_qeHNdRIJR1eE8RC1IMxpwc_0P73_69W5TWxVUXej9NE7KkFwsSZ9c&usqp=CAU'),
-                                          fit: BoxFit.cover,
-                                        )
+                                  child: GestureDetector(
+                                    onTap: (){
+                                      Navigator.push(context, MaterialPageRoute(builder: (context)=> IndexPage()));
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(100),
+                                          image: DecorationImage(
+                                            image: NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQO1YnvQ15XyjnY_qeHNdRIJR1eE8RC1IMxpwc_0P73_69W5TWxVUXej9NE7KkFwsSZ9c&usqp=CAU'),
+                                            fit: BoxFit.cover,
+                                          )
+                                      ),
                                     ),
                                   ),
                                 ),

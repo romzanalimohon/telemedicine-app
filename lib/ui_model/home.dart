@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
           items: [
             BottomNavigationBarItem(
                 icon: Icon(Icons.medical_information_outlined),
-                label: 'Doctors',
+                label: 'Consultant',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.signal_wifi_statusbar_4_bar),
