@@ -127,7 +127,10 @@ class _LoginPageState extends State<LoginPage> {
                     // });
 
                     login(emailController.text.toString(), passwordController.text.toString());
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
+                    if(emailController.text.isNotEmpty && passwordController.text.isNotEmpty){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
+                    }
+
                   },
                   child: Container(
                     height: 50,
