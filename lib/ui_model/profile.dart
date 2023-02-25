@@ -10,8 +10,8 @@ import 'package:http/http.dart' as http;
 
 
 class Profile extends StatefulWidget {
-   // var user;
-   // Profile(this.user);
+    var user;
+    Profile({this.user});
   //const Profile({Key? key}) : super(key: key);
 
   @override
@@ -25,9 +25,9 @@ class _ProfileState extends State<Profile> {
 
 
   var data;
-  Future getData() async{
+  Future getStudentProfile(int id) async{
     //var uri = Uri.parse('https://jsonplaceholder.typicode.com/photos');
-    var uri = Uri.parse("https://consultant.xprtx.net/public/api/auth/getstudent/2");
+    var uri = Uri.parse("https://consultant.xprtx.net/public/api/auth/getstudent/$id");
     var response = await http.get(uri);
     setState(() {
       var decode = json.decode(response.body);
@@ -44,7 +44,8 @@ class _ProfileState extends State<Profile> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getData();
+    final id = widget.user;
+    getStudentProfile(id);
   }
 
 

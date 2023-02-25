@@ -1,12 +1,11 @@
 import 'dart:convert';
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:telemedecine_app/authentication_page/register.dart';
 import 'package:telemedecine_app/components/nueBox.dart';
 import 'package:telemedecine_app/ui_model/home.dart';
-import 'package:telemedecine_app/ui_model/profile.dart';
+import 'package:wc_form_validators/wc_form_validators.dart';
 
 
 class LoginPage extends StatefulWidget {
@@ -17,8 +16,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  
-  
+
+
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -48,8 +47,10 @@ class _LoginPageState extends State<LoginPage> {
       print(e.toString());
     }
   }
-  
-  
+
+  GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+  bool passToggle = true;
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context);
@@ -58,126 +59,159 @@ class _LoginPageState extends State<LoginPage> {
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                //const SizedBox(height: 10),
-                // logo
-                SizedBox(
-                  height: 80,
-                  width: 130,
-                  child: NeuBox(child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      image: DecorationImage(
-                        image: new ExactAssetImage('assets/images/trust.jpg'),
-                        fit: BoxFit.fill,
-                      )
-                    ),
-                  )),
-                ),
-
-                const SizedBox(height: 50),
-
-                // welcome back, you've been missed!
-
-
-                const SizedBox(height: 25),
-
-                // username textfield
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: TextField(
-                    controller: emailController,
-                    decoration: const InputDecoration(
-                      labelText: 'enter email',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
+            child: Form(
+              key: _formkey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  //const SizedBox(height: 10),
+                  // logo
+                  SizedBox(
+                    height: 80,
+                    width: 130,
+                    child: NeuBox(child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          image: DecorationImage(
+                            image: new ExactAssetImage('assets/images/trust.jpg'),
+                            fit: BoxFit.fill,
+                          )
                       ),
-                    ),
+                    )),
                   ),
-                ),
 
-                const SizedBox(height: 10),
+                  const SizedBox(height: 50),
 
-                // password textfield
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: TextField(
-                    controller: passwordController,
-                    decoration: const InputDecoration(
-                      labelText: 'enter password',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
+                  // welcome back, you've been missed!
+
+
+                  const SizedBox(height: 25),
+
+                  // username textfield
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: TextFormField(
+                      controller: emailController,
+                      decoration: const InputDecoration(
+                        labelText: 'email',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
+                          ),
                         ),
+                        prefixIcon: Icon(Icons.email),
                       ),
+                      // validator: (value){
+                      //   if(value!.isEmpty){
+                      //     return 'enter email';
+                      //   }
+                      //   final bool emailValid =
+                      //   RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                      //       .hasMatch(value);
+                      //   if(!emailValid){
+                      //     return 'enter valid email';
+                      //   }
+                      // },
+                      validator: Validators.compose([
+                        Validators.required('email is required'),
+                        Validators.email('invalid email address'),
+                      ]),
                     ),
                   ),
-                ),
 
-                const SizedBox(height: 25),
+                  const SizedBox(height: 10),
 
-                GestureDetector(
-                  onTap: (){
-                    // setState(() {
-                    //   Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
-                    // });
-
-                    login(emailController.text.toString(), passwordController.text.toString());
-                    if(emailController.text.isNotEmpty && passwordController.text.isNotEmpty){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
-                    }
-
-                  },
-                  child: Container(
-                    height: 50,
-                    width: 370,
-                    decoration: BoxDecoration(
-                      color: Colors.blue,
-                      borderRadius: BorderRadius.circular(10),
+                  // password textfield
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: TextFormField(
+                      obscureText: true,
+                      keyboardType: TextInputType.emailAddress,
+                      controller: passwordController,
+                      decoration: const InputDecoration(
+                        labelText: 'password',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                        ),
+                        prefixIcon: Icon(Icons.lock),
+                      ),
+                      validator: (value){
+                        if(value!.isEmpty){
+                          return 'password required';
+                        }
+                      },
                     ),
-                    child: Center(child: Text('Login', style: TextStyle(fontSize: 25),)),
                   ),
-                ),
 
-                const SizedBox(height: 25),
+                  const SizedBox(height: 25),
 
-                // or continue with
-                GestureDetector(
-                  onTap: (){
-                    setState(() {
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> RegisterPage()));
-                    });
-                  },
-                  child: Container(
-                    height: 50,
-                    width: 370,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
+                  GestureDetector(
+                    onTap: (){
+                      // setState(() {
+                      //   Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
+                      // });
+
+                      if (_formkey.currentState!.validate()) {
+                        // If the form is valid, display a snackbar. In the real world,
+                        // you'd often call a server or save the information in a database.
+                        login(emailController.text.toString(), passwordController.text.toString());
+                        if(emailController.text.isNotEmpty && passwordController.text.isNotEmpty){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
+                        }
+                      }
+
+
+
+                    },
+                    child: Container(
+                      height: 50,
+                      width: 370,
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(child: Text('Login', style: TextStyle(fontSize: 25),)),
                     ),
-                    child: Center(child: Text('Register', style: TextStyle(fontSize: 25, color: Colors.black),)),
                   ),
-                ),
 
+                  const SizedBox(height: 25),
 
-                const SizedBox(height: 20),
-
-                // forgot password?
-                Center(
-                  child: Text(
-                    'Forgot Password?',
-                    style: TextStyle(color: Colors.grey[600]),
+                  // or continue with
+                  GestureDetector(
+                    onTap: (){
+                      setState(() {
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> RegisterPage()));
+                      });
+                    },
+                    child: Container(
+                      height: 50,
+                      width: 370,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(child: Text('Register', style: TextStyle(fontSize: 25, color: Colors.black),)),
+                    ),
                   ),
-                ),
-
-                const SizedBox(height: 50),
 
 
-              ],
+                  const SizedBox(height: 20),
+
+                  // forgot password?
+                  Center(
+                    child: Text(
+                      'Forgot Password?',
+                      style: TextStyle(color: Colors.grey[600]),
+                    ),
+                  ),
+
+                  const SizedBox(height: 50),
+
+
+                ],
+              ),
             ),
           ),
         ),

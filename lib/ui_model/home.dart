@@ -1,11 +1,18 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
+import 'package:telemedecine_app/authentication_page/login.dart';
 import 'package:telemedecine_app/components/app_bar.dart';
+import 'package:telemedecine_app/components/global_variable.dart';
 import 'package:telemedecine_app/ui_model/doctor_list.dart';
 import 'package:telemedecine_app/ui_model/profile.dart';
 import 'package:telemedecine_app/ui_model/settings.dart';
 import 'package:telemedecine_app/ui_model/status.dart';
-
-class HomePage extends StatefulWidget {
+int id = 0;
+class HomePage extends StatefulWidget{
   const HomePage({Key? key}) : super(key: key);
 
   @override
@@ -14,11 +21,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+
   int _currentIndex = 2;
   final tabs = [
     DoctorList(),
     Status(),
-    Profile(),
+    Profile(user: userId,),
     Settings(),
 
   ];

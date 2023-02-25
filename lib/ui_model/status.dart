@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:telemedecine_app/components/global_variable.dart';
 import 'package:telemedecine_app/components/text_stile.dart';
 import 'package:http/http.dart' as http;
 
@@ -25,7 +26,7 @@ class _StatusState extends State<Status> {
 
   var data;
   Future getData() async {
-    var uri = Uri.parse('https://jsonplaceholder.typicode.com/posts');
+    var uri = Uri.parse('https://api.ticonsultancy.co.uk/api/getStatus');
     var response = await http.get(uri);
     setState(() {
       var decode = json.decode(response.body);
@@ -115,11 +116,11 @@ class _StatusState extends State<Status> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    data[i]['title'],
+                                    data[i]['name'].toString(),
                                     style: statusStile1(),
                                   ),
                                   Text(
-                                    data[i]['body'],
+                                    data[i]['description'].toString(),
                                     style: statusStile2(),
                                   ),
                                 ],

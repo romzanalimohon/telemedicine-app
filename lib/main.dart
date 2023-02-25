@@ -20,17 +20,17 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       //home: LoginPage(),
       //home: ProfileDemoPage(),
-      //home: HomePage(),
+      home: HomePage(),
       // home: RegisterPage(),
       //home: Status(),
 
-      initialRoute: MyRoutes.LoginRoute,
-      routes: {
-        // MyRoutes.ProfileRoute: (context) => ProfileDemoPage(),
-        MyRoutes.ConsultantRoute: (context) => HomePage(),
-        MyRoutes.LoginRoute: (context) => LoginPage(),
-        MyRoutes.RegisterRoute: (context) => RegisterPage(),
-      },
+      // initialRoute: MyRoutes.LoginRoute,
+      // routes: {
+      //   // MyRoutes.ProfileRoute: (context) => ProfileDemoPage(),
+      //   MyRoutes.ConsultantRoute: (context) => HomePage(),
+      //   MyRoutes.LoginRoute: (context) => LoginPage(),
+      //   MyRoutes.RegisterRoute: (context) => RegisterPage(),
+      // },
     );
   }
 }
