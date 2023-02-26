@@ -11,9 +11,9 @@ import 'package:telemedecine_app/ui_model/doctor_list.dart';
 import 'package:telemedecine_app/ui_model/profile.dart';
 import 'package:telemedecine_app/ui_model/settings.dart';
 import 'package:telemedecine_app/ui_model/status.dart';
-int id = 0;
 class HomePage extends StatefulWidget{
-  const HomePage({Key? key}) : super(key: key);
+
+  HomePage({Key? key,}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -22,7 +22,7 @@ class HomePage extends StatefulWidget{
 class _HomePageState extends State<HomePage> {
 
 
-  int _currentIndex = 2;
+  int _currentIndex = 0;
   final tabs = [
     DoctorList(),
     Status(),
@@ -37,6 +37,8 @@ class _HomePageState extends State<HomePage> {
     ProfileAppBar(),
     SettingsAppBar()
   ];
+
+
 
   @override
   Widget build(BuildContext context) {

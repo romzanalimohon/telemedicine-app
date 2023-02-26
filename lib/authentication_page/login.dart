@@ -2,21 +2,28 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:telemedecine_app/authentication_page/register.dart';
 import 'package:telemedecine_app/components/nueBox.dart';
+import 'package:telemedecine_app/main.dart';
+import 'package:telemedecine_app/ui_model/doctor_list.dart';
 import 'package:telemedecine_app/ui_model/home.dart';
+import 'package:telemedecine_app/ui_model/profile.dart';
 import 'package:wc_form_validators/wc_form_validators.dart';
+
+var userId;
+
 
 
 class LoginPage extends StatefulWidget {
+
   const LoginPage({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<LoginPage> createState() => LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-
+class LoginPageState extends State<LoginPage> {
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -33,16 +40,20 @@ class _LoginPageState extends State<LoginPage> {
           }
       );
 
-      if(response.statusCode == 200){
+      var data = jsonDecode(response.body.toString());
+      print(data['Token'].toString());
+      print(data['student']['name']);
+      print(data);
+      print('Login successfully');
+      userId = data['student']['id'] as int;
 
-        var data = jsonDecode(response.body.toString());
-        print(data['Token'].toString());
-        print(data['student']['name']);
-        print('Login successfully');
 
-      }else {
-        print('failed');
-      }
+      // if(response.statusCode == 200){
+      //
+      //
+      // }else {
+      //   print('failed');
+      // }
     }catch(e){
       print(e.toString());
     }
@@ -148,7 +159,7 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(height: 25),
 
                   GestureDetector(
-                    onTap: (){
+                    onTap: () async{
                       // setState(() {
                       //   Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
                       // });
@@ -156,11 +167,17 @@ class _LoginPageState extends State<LoginPage> {
                       if (_formkey.currentState!.validate()) {
                         // If the form is valid, display a snackbar. In the real world,
                         // you'd often call a server or save the information in a database.
-                        login(emailController.text.toString(), passwordController.text.toString());
                         if(emailController.text.isNotEmpty && passwordController.text.isNotEmpty){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
+                          var sharedPref = await SharedPreferences.getInstance();
+                          sharedPref.setBool(MySplashAppState.KEYLOGIN, false);
+                          login(emailController.text.toString(), passwordController.text.toString());
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HomePage()));
+
+                          //Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
                         }
                       }
+
+
 
 
 

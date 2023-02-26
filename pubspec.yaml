@@ -43,6 +43,7 @@ dependencies:
   wakelock:
   agora_rtc_engine:
   wc_form_validators: ^1.0.0
+  shared_preferences:
 
 dev_dependencies:
   flutter_test:
