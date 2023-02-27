@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:telemedecine_app/authentication_page/login.dart';
 
-class Settings extends StatelessWidget {
-  const Settings({Key? key}) : super(key: key);
+class Settings extends StatefulWidget {
+  @override
+  State<Settings> createState() => _SettingsState();
+}
+
+class _SettingsState extends State<Settings> {
+  //const Settings({Key? key}) : super(key: key);
+  final userdata = GetStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -71,15 +80,23 @@ class Settings extends StatelessWidget {
           // ),
 
 
-          Container(
-            margin: EdgeInsets.only(left: 20, right: 20, top: 50),
-            height: 50,
-            width: 370,
-            decoration: BoxDecoration(
-              color: Colors.blue,
-              borderRadius: BorderRadius.circular(50),
+          GestureDetector(
+            onTap: (){
+              userdata.write('isLogged', false);
+              userdata.remove('name');
+              userdata.remove('email');
+              Get.offAll(LoginPage());
+            },
+            child: Container(
+              margin: EdgeInsets.only(left: 20, right: 20, top: 50),
+              height: 50,
+              width: 370,
+              decoration: BoxDecoration(
+                color: Colors.blue,
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: Center(child: Text('Log Out', style: TextStyle(fontSize: 25),)),
             ),
-            child: Center(child: Text('Log Out', style: TextStyle(fontSize: 25),)),
           ),
 
         ],

@@ -44,6 +44,7 @@ dependencies:
   agora_rtc_engine:
   wc_form_validators: ^1.0.0
   shared_preferences:
+  get_storage: ^2.0.3
 
 dev_dependencies:
   flutter_test:

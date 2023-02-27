@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart';
 import 'package:telemedecine_app/components/edit_profile.dart';
 import 'package:telemedecine_app/components/text_stile.dart';
@@ -10,9 +11,7 @@ import 'package:http/http.dart' as http;
 
 
 class Profile extends StatefulWidget {
-    var user;
-    Profile({this.user});
-  //const Profile({Key? key}) : super(key: key);
+  const Profile({Key? key}) : super(key: key);
 
   @override
   State<Profile> createState() => _ProfileState();
@@ -21,34 +20,35 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
 
 
-  List items = [];
+  // List items = [];
+  //
+  //
+  // var data;
+  // Future getStudentProfile(int id) async{
+  //   //var uri = Uri.parse('https://jsonplaceholder.typicode.com/photos');
+  //   var uri = Uri.parse("https://consultant.xprtx.net/public/api/auth/getstudent/$id");
+  //   var response = await http.get(uri);
+  //   setState(() {
+  //     var decode = json.decode(response.body);
+  //     data = decode;
+  //     //print(data);
+  //   });
+  //   //print(data);
+  //   print(data['student']['name']);
+  // }
 
 
-  var data;
-  Future getStudentProfile(int id) async{
-    //var uri = Uri.parse('https://jsonplaceholder.typicode.com/photos');
-    var uri = Uri.parse("https://consultant.xprtx.net/public/api/auth/getstudent/$id");
-    var response = await http.get(uri);
-    setState(() {
-      var decode = json.decode(response.body);
-      data = decode;
-      //print(data);
-    });
-    //print(data);
-    print(data['student']['name']);
-  }
+
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   final id = widget.user;
+  //   getStudentProfile(id);
+  // }
 
 
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    final id = widget.user;
-    getStudentProfile(id);
-  }
-
-
+  final userdata = GetStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +63,7 @@ class _ProfileState extends State<Profile> {
             Card(
               margin: EdgeInsets.all(10),
               child: Container(
-                height: size.height * .3,
+                height: size.height * .332,
                 width: size.width,
                 color: Colors.black,
                 child: Column(
@@ -95,10 +95,10 @@ class _ProfileState extends State<Profile> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Center(child: Text(data['student']['name'], style: TextStyle(
+                          Center(child: Text(userdata.read('name'), style: TextStyle(
                               fontSize: 32, color: Colors.white))),
                           Center(child: Text(
-                              data['student']['email'], style: linkStyle())),
+                              userdata.read('email'), style: linkStyle())),
 
                         ],
                       ),
@@ -115,100 +115,51 @@ class _ProfileState extends State<Profile> {
                 color: Colors.black,
                 child: Column(
                   children: [
-                    Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: Container(
-                            height: size.height * .1,
-                            width: size.width * .4,
-                            color: Colors.white,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text('Date of Birth', style: TextStyle(
-                                      fontSize: 20, color: Colors.black),),
-                                  Text('88-88-88-88', style: TextStyle(
-                                      fontSize: 16, color: Colors.black),)
-                                ],
-                              ),
-                            ),
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Container(
+                        height: size.height * .05,
+                        width: size.width * .8,
+                        color: Colors.white,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('Cell phone:', style: TextStyle(
+                                  fontSize: 20, color: Colors.black),),
+                              Text(userdata.read('mobile').toString(), style: TextStyle(
+                                  fontSize: 20, color: Colors.black),)
+                            ],
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: Container(
-                            height: size.height * .1,
-                            width: size.width * .4,
-                            color: Colors.white,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text('Cell Phone', style: TextStyle(
-                                      fontSize: 20, color: Colors.black),),
-                                  Text(data['student']['mobile'], style: TextStyle(
-                                      fontSize: 16, color: Colors.black),)
-                                ],
-                              ),
-                            ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Container(
+                        height: size.height * .05,
+                        width: size.width * .8,
+                        color: Colors.white,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('Status:', style: TextStyle(
+                                  fontSize: 20, color: Colors.black),),
+                              CircleAvatar(
+                                backgroundColor: Colors.green,
+                                child: Text(userdata.read('status').toString(), style: TextStyle(
+                                    fontSize: 20, color: Colors.black),),
+                              )
+                            ],
                           ),
                         ),
-                      ],
+                      ),
                     ),
 
 
-                    Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: Container(
-                            height: size.height * .1,
-                            width: size.width * .4,
-                            color: Colors.white,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text('Home Phone', style: TextStyle(
-                                      fontSize: 20, color: Colors.black),),
-                                  Text('88-88-88-88', style: TextStyle(
-                                      fontSize: 16, color: Colors.black),)
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: Container(
-                            height: size.height * .1,
-                            width: size.width * .4,
-                            color: Colors.white,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text('Date of Birth', style: TextStyle(
-                                      fontSize: 20, color: Colors.black),),
-                                  Text('88-88-88-88', style: TextStyle(
-                                      fontSize: 16, color: Colors.black),)
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
 
 
                     SizedBox(height: 20,),

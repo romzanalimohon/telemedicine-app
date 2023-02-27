@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
   final tabs = [
     DoctorList(),
     Status(),
-    Profile(user: userId,),
+    Profile(),
     Settings(),
 
   ];

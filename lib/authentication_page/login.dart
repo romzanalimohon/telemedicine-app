@@ -1,19 +1,17 @@
 import 'dart:convert';
-
+import 'package:get_storage/get_storage.dart';
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:telemedecine_app/authentication_page/register.dart';
+import 'package:telemedecine_app/components/global_variable.dart';
 import 'package:telemedecine_app/components/nueBox.dart';
 import 'package:telemedecine_app/main.dart';
 import 'package:telemedecine_app/ui_model/doctor_list.dart';
 import 'package:telemedecine_app/ui_model/home.dart';
 import 'package:telemedecine_app/ui_model/profile.dart';
 import 'package:wc_form_validators/wc_form_validators.dart';
-
-var userId;
-
-
 
 class LoginPage extends StatefulWidget {
 
@@ -28,24 +26,36 @@ class LoginPageState extends State<LoginPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
+  final userdata = GetStorage();
+
+  var data;
   void login(String email , password) async {
 
     try{
 
-      Response response = await post(
-          Uri.parse('https://consultant.xprtx.net/public/api/auth/login'),
+      var response = await post(
+          Uri.parse('$api/login'),
           body: {
             'email' : email,
             'password' : password
           }
       );
 
-      var data = jsonDecode(response.body.toString());
+      var decode = jsonDecode(response.body.toString());
+      data = decode;
       print(data['Token'].toString());
       print(data['student']['name']);
+      print(data['student']['id']);
       print(data);
       print('Login successfully');
-      userId = data['student']['id'] as int;
+
+
+      userdata.write('isLogged', true);
+      userdata.write('email', data['student']['email']);
+      userdata.write('name', data['student']['name']);
+      userdata.write('mobile', data['student']['mobile']);
+      userdata.write('status', data['student']['status']);
+
 
 
       // if(response.statusCode == 200){
@@ -168,11 +178,12 @@ class LoginPageState extends State<LoginPage> {
                         // If the form is valid, display a snackbar. In the real world,
                         // you'd often call a server or save the information in a database.
                         if(emailController.text.isNotEmpty && passwordController.text.isNotEmpty){
-                          var sharedPref = await SharedPreferences.getInstance();
-                          sharedPref.setBool(MySplashAppState.KEYLOGIN, false);
+                          // var sharedPref = await SharedPreferences.getInstance();
+                          // sharedPref.setBool(MySplashAppState.KEYLOGIN, false);
                           login(emailController.text.toString(), passwordController.text.toString());
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HomePage()));
+                          //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HomePage()));
 
+                          Get.offAll(()=> HomePage());
                           //Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
                         }
                       }
@@ -184,7 +195,7 @@ class LoginPageState extends State<LoginPage> {
                     },
                     child: Container(
                       height: 50,
-                      width: 370,
+                      width: 330,
                       decoration: BoxDecoration(
                         color: Colors.blue,
                         borderRadius: BorderRadius.circular(10),
@@ -204,7 +215,7 @@ class LoginPageState extends State<LoginPage> {
                     },
                     child: Container(
                       height: 50,
-                      width: 370,
+                      width: 330,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
