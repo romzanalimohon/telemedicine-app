@@ -46,8 +46,10 @@ class LoginPageState extends State<LoginPage> {
       print(data['Token'].toString());
       print(data['student']['name']);
       print(data['student']['id']);
+
+
+
       print(data);
-      print('Login successfully');
 
 
       userdata.write('isLogged', true);
@@ -56,14 +58,32 @@ class LoginPageState extends State<LoginPage> {
       userdata.write('mobile', data['student']['mobile']);
       userdata.write('status', data['student']['status']);
 
+      userdata.write('consultant_name', data['consultant'][0]['name']);
+      userdata.write('role', data['consultant'][0]['role']);
+      userdata.write('len', data['consultant']);
+
+      userdata.write('status_name', data['statuses'][0]['name']);
+      userdata.write('status_description', data['statuses'][0]['description']);
+      userdata.write('stat_len', data['statuses']);
 
 
-      // if(response.statusCode == 200){
-      //
-      //
-      // }else {
-      //   print('failed');
-      // }
+      //print(data.student.consultant[0]['name']);
+      print(data['consultant'][0]['name']);
+      print(data['consultant'].length);
+
+
+      print(data['statuses'][0]['name']);
+      print(data['statuses'].length);
+
+
+      if(response.statusCode == 200){
+
+        print('login success');
+
+
+      }else {
+        print('failed');
+      }
     }catch(e){
       print(e.toString());
     }
@@ -178,13 +198,13 @@ class LoginPageState extends State<LoginPage> {
                         // If the form is valid, display a snackbar. In the real world,
                         // you'd often call a server or save the information in a database.
                         if(emailController.text.isNotEmpty && passwordController.text.isNotEmpty){
-                          // var sharedPref = await SharedPreferences.getInstance();
-                          // sharedPref.setBool(MySplashAppState.KEYLOGIN, false);
-                          login(emailController.text.toString(), passwordController.text.toString());
-                          //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HomePage()));
+                            // var sharedPref = await SharedPreferences.getInstance();
+                            // sharedPref.setBool(MySplashAppState.KEYLOGIN, false);
+                            login(emailController.text.toString(), passwordController.text.toString());
+                            //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HomePage()));
 
-                          Get.offAll(()=> HomePage());
-                          //Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
+                            Get.offAll(()=> HomePage());
+                            //Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
                         }
                       }
 

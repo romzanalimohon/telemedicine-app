@@ -20,34 +20,6 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
 
 
-  // List items = [];
-  //
-  //
-  // var data;
-  // Future getStudentProfile(int id) async{
-  //   //var uri = Uri.parse('https://jsonplaceholder.typicode.com/photos');
-  //   var uri = Uri.parse("https://consultant.xprtx.net/public/api/auth/getstudent/$id");
-  //   var response = await http.get(uri);
-  //   setState(() {
-  //     var decode = json.decode(response.body);
-  //     data = decode;
-  //     //print(data);
-  //   });
-  //   //print(data);
-  //   print(data['student']['name']);
-  // }
-
-
-
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   final id = widget.user;
-  //   getStudentProfile(id);
-  // }
-
-
   final userdata = GetStorage();
 
   @override
@@ -95,10 +67,10 @@ class _ProfileState extends State<Profile> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Center(child: Text(userdata.read('name'), style: TextStyle(
+                          Center(child: Text(userdata.read('name').toString(), style: TextStyle(
                               fontSize: 32, color: Colors.white))),
                           Center(child: Text(
-                              userdata.read('email'), style: linkStyle())),
+                              userdata.read('email').toString(), style: linkStyle())),
 
                         ],
                       ),

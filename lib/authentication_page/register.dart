@@ -19,22 +19,22 @@ class _RegisterPageState extends State<RegisterPage> {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController password_confirmationController = TextEditingController();
+  //TextEditingController passwordController = TextEditingController();
+  //TextEditingController password_confirmationController = TextEditingController();
 
   Future<void> submitData() async{
     final name = nameController.text;
     final email = emailController.text;
     final mobile = mobileController.text;
-    final password = passwordController.text;
-    final password_confirmation = password_confirmationController.text;
+    //final password = passwordController.text;
+    //final password_confirmation = password_confirmationController.text;
 
       final body = {
         "name": name,
         "email": email,
         "mobile": mobile,
-        "password": password,
-        "password_confirmation": password_confirmation
+        //"password": password,
+       // "password_confirmation": password_confirmation
       };
       //submit data to the server
       final url = '$api/registration';
@@ -173,55 +173,55 @@ class _RegisterPageState extends State<RegisterPage> {
                     )),
 
 
-                Positioned(
-                  top: 363,
-                  left: 15,
-                  child: Text('password', style: TextStyle(fontSize: 13, color: Colors.black),),),
-                Positioned(
-                    top: 383,
-                    //left: 15,
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints.expand(height: 200, width: size.width*.95),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 15.0, top: 2),
-                        child: TextFormField(
-                          controller: passwordController,
-                          decoration: InputDecoration(
-                              labelText: '',
-                              border: OutlineInputBorder(),
-                            prefixIcon: Icon(Icons.lock)
-                          ),
-                          validator: Validators.compose([
-                            Validators.required('password confirmation is required'),
-                          ]),
-                        ),
-                      ),
-                    )),
-
-                Positioned(
-                  top: 478,
-                  left: 15,
-                  child: Text('confirm_password', style: TextStyle(fontSize: 13, color: Colors.black),),),
-                Positioned(
-                    top: 498,
-                    //left: 15,
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints.expand(height: 200, width: size.width*.95),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 15.0, top: 2),
-                        child: TextFormField(
-                          controller: password_confirmationController,
-                          decoration: InputDecoration(
-                              labelText: '',
-                              border: OutlineInputBorder(),
-                            prefixIcon: Icon(Icons.lock)
-                          ),
-                          validator: Validators.compose([
-                            Validators.required('password is required'),
-                          ]),
-                        ),
-                      ),
-                    )),
+                // Positioned(
+                //   top: 363,
+                //   left: 15,
+                //   child: Text('password', style: TextStyle(fontSize: 13, color: Colors.black),),),
+                // Positioned(
+                //     top: 383,
+                //     //left: 15,
+                //     child: ConstrainedBox(
+                //       constraints: BoxConstraints.expand(height: 200, width: size.width*.95),
+                //       child: Padding(
+                //         padding: const EdgeInsets.only(left: 15.0, top: 2),
+                //         child: TextFormField(
+                //           controller: passwordController,
+                //           decoration: InputDecoration(
+                //               labelText: '',
+                //               border: OutlineInputBorder(),
+                //             prefixIcon: Icon(Icons.lock)
+                //           ),
+                //           validator: Validators.compose([
+                //             Validators.required('password confirmation is required'),
+                //           ]),
+                //         ),
+                //       ),
+                //     )),
+                //
+                // Positioned(
+                //   top: 478,
+                //   left: 15,
+                //   child: Text('confirm_password', style: TextStyle(fontSize: 13, color: Colors.black),),),
+                // Positioned(
+                //     top: 498,
+                //     //left: 15,
+                //     child: ConstrainedBox(
+                //       constraints: BoxConstraints.expand(height: 200, width: size.width*.95),
+                //       child: Padding(
+                //         padding: const EdgeInsets.only(left: 15.0, top: 2),
+                //         child: TextFormField(
+                //           controller: password_confirmationController,
+                //           decoration: InputDecoration(
+                //               labelText: '',
+                //               border: OutlineInputBorder(),
+                //             prefixIcon: Icon(Icons.lock)
+                //           ),
+                //           validator: Validators.compose([
+                //             Validators.required('password is required'),
+                //           ]),
+                //         ),
+                //       ),
+                //     )),
 
 
 
@@ -254,8 +254,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     onPressed: (){
                       if(_formkey.currentState!.validate()){
                         if(nameController.text.isNotEmpty && emailController.text.isNotEmpty
-                            && mobileController.text.isNotEmpty && passwordController.text.isNotEmpty
-                            && password_confirmationController.text.isNotEmpty){
+                            && mobileController.text.isNotEmpty){
                           submitData();
                         }
                       }

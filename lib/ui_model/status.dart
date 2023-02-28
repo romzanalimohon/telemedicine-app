@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:telemedecine_app/components/global_variable.dart';
 import 'package:telemedecine_app/components/text_stile.dart';
 import 'package:http/http.dart' as http;
@@ -13,35 +14,9 @@ class Status extends StatefulWidget {
 }
 
 class _StatusState extends State<Status> {
-  // Future getStatus() async{
-  //
-  //   final String response = await rootBundle.loadString('assets/trustdocument.json');
-  //   final decode = await json.decode(response);
-  //   setState(() {
-  //
-  //     data = decode;
-  //     print(data);
-  //   });
-  // }
-
-  var data;
-  Future getData() async {
-    var uri = Uri.parse('https://api.ticonsultancy.co.uk/api/getStatus');
-    var response = await http.get(uri);
-    setState(() {
-      var decode = json.decode(response.body);
-      data = decode;
-      //print(data);
-    });
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    this.getData();
-  }
-
+  
+  final userdata = GetStorage();
+  
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -63,7 +38,7 @@ class _StatusState extends State<Status> {
             child: ListView.builder(
                 scrollDirection: Axis.vertical,
                 //shrinkWrap: true,
-                itemCount: data == null ? 0 : data.length,
+                itemCount: userdata.read('stat_len').length,
                 itemBuilder: (context, i) {
                   return Column(
                     children: [
@@ -91,7 +66,7 @@ class _StatusState extends State<Status> {
                                 color: i%2 == 0? Colors.white : Colors.black12,),
                               child: Center(
                                   child: Text(
-                                data[i]['id'].toString(),
+                                (i+1).toString(),
                                 style: statusStile1(),
                               )),
                             ),
@@ -116,11 +91,11 @@ class _StatusState extends State<Status> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    data[i]['name'].toString(),
+                                    userdata.read('status_name').toString(),
                                     style: statusStile1(),
                                   ),
                                   Text(
-                                    data[i]['description'].toString(),
+                                    (userdata.read('status_description') == null)? '' : userdata.read('status_description').toString(),
                                     style: statusStile2(),
                                   ),
                                 ],

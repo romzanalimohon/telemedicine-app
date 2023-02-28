@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:telemedecine_app/for_video_calling/page/index.dart';
@@ -13,24 +14,7 @@ class DoctorList extends StatefulWidget {
 
 class _DoctorListState extends State<DoctorList> {
 
-  var data;
-  Future getData() async{
-    //var uri = Uri.parse('https://jsonplaceholder.typicode.com/photos');
-    var uri = Uri.parse("https://consultant.xprtx.net/public/api/auth/getConsultant");
-    var response = await http.get(uri);
-     setState(() {
-       var decode = json.decode(response.body);
-       data = decode;
-       //print(data);
-     });
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    this.getData();
-  }
+  final userdata = GetStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +36,8 @@ class _DoctorListState extends State<DoctorList> {
                 child: ListView.builder(
                   scrollDirection: Axis.vertical,
                     //shrinkWrap: true,
-                    itemCount: data == null? 0 : data.length,
+                    //itemCount: data == null? 0 : data.length,
+                    itemCount: userdata.read('len').length,
                     itemBuilder: (context, int index){
                       return Card(
                         shape: RoundedRectangleBorder(
@@ -104,15 +89,23 @@ class _DoctorListState extends State<DoctorList> {
                               //   ),
                               // ),
 
-                              Padding(
-                                padding: const EdgeInsets.only(left: 20.0, top: 20),
-                                child: SizedBox(
-                                  height: 100,
-                                  width: 130,
-                                  child: Text(data[index]['name'], style: GoogleFonts.lato(
-                                    textStyle: TextStyle(fontSize: 20)
-                                  ),),
-                                ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    width: 150,
+                                    child: Text(userdata.read('consultant_name').toString(), style: GoogleFonts.lato(
+                                        textStyle: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                                    ),),
+                                  ),
+
+                                  SizedBox(
+                                    child: Text('Role: '+userdata.read('role').toString(), style: GoogleFonts.lato(
+                                        textStyle: TextStyle(fontSize: 20)
+                                    ),),
+                                  ),
+                                ],
                               ),
 
                               Padding(
