@@ -41,48 +41,59 @@ class LoginPageState extends State<LoginPage> {
           }
       );
 
-      var decode = jsonDecode(response.body.toString());
-      data = decode;
-      print(data['Token'].toString());
-      print(data['student']['name']);
-      print(data['student']['id']);
 
-
-
-      print(data);
-
-
-      userdata.write('isLogged', true);
-      userdata.write('email', data['student']['email']);
-      userdata.write('name', data['student']['name']);
-      userdata.write('mobile', data['student']['mobile']);
-      userdata.write('status', data['student']['status']);
-
-      userdata.write('consultant_name', data['consultant'][0]['name']);
-      userdata.write('role', data['consultant'][0]['role']);
-      userdata.write('len', data['consultant']);
-
-      userdata.write('status_name', data['statuses'][0]['name']);
-      userdata.write('status_description', data['statuses'][0]['description']);
-      userdata.write('stat_len', data['statuses']);
-
-
-      //print(data.student.consultant[0]['name']);
-      print(data['consultant'][0]['name']);
-      print(data['consultant'].length);
-
-
-      print(data['statuses'][0]['name']);
-      print(data['statuses'].length);
 
 
       if(response.statusCode == 200){
 
+
+
+
+        var decode = jsonDecode(response.body.toString());
+        data = decode;
+        print(data['Token'].toString());
+        print(data['student']['name']);
+        print(data['student']['id']);
+
+
+
+        print(data);
+
+
+        userdata.write('isLogged', true);
+        userdata.write('email', data['student']['email']);
+        userdata.write('name', data['student']['name']);
+        userdata.write('mobile', data['student']['mobile']);
+        userdata.write('status', data['student']['status']);
+
+        userdata.write('consultant_name', data['consultant'][0]['name']);
+        userdata.write('role', data['consultant'][0]['role']);
+        userdata.write('len', data['consultant']);
+
+        userdata.write('status_name', data['statuses'][0]['name']);
+        userdata.write('status_description', data['statuses'][0]['description']);
+        userdata.write('stat_len', data['statuses']);
+
+
+        //print(data.student.consultant[0]['name']);
+        print(data['consultant'][0]['name']);
+        print(data['consultant'].length);
+
+
+        print(data['statuses'][0]['name']);
+        print(data['statuses'].length);
+
+
+
+
+
         print('login success');
+        showSuccessMessage("login successfull");
 
 
       }else {
         print('failed');
+        showErrorMessage("login failed");
       }
     }catch(e){
       print(e.toString());
@@ -266,4 +277,27 @@ class LoginPageState extends State<LoginPage> {
       ),
     );
   }
+
+
+
+  void showSuccessMessage(String message){
+    final snackBar = SnackBar(content: Text(message),
+      backgroundColor: Colors.green,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+
+  void showErrorMessage(String message){
+    final snackBar = SnackBar(
+      content: Text(
+        message,
+        style: TextStyle(color: Colors.white),
+      ),
+      backgroundColor: Colors.red,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+
 }
