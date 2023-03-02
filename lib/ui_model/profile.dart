@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart';
+import 'package:telemedecine_app/components/change_password.dart';
 import 'package:telemedecine_app/components/edit_profile.dart';
 import 'package:telemedecine_app/components/text_stile.dart';
 
@@ -51,8 +52,7 @@ class _ProfileState extends State<Profile> {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(100),
                               image: DecorationImage(
-                                image: new ExactAssetImage(
-                                    'assets/images/rakoon.jpg'),
+                                image: new NetworkImage('https://cdn1.iconfinder.com/data/icons/proffesion/256/Businessman-512.png'),
                                 fit: BoxFit.cover,
                               )
                           ),
@@ -151,12 +151,17 @@ class _ProfileState extends State<Profile> {
                                           Padding(
                                             padding: const EdgeInsets.only(
                                                 right: 8.0),
-                                            child: ElevatedButton(
-                                              child: Text('X'),
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                            ),
+                                              child: InkWell(
+                                                onTap: (){
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Container(
+                                                  margin: EdgeInsets.only(top: 10, bottom: 15),
+                                                  child: CircleAvatar(
+                                                      backgroundColor: Colors.red,
+                                                      child: Text('X', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),)),
+                                                ),
+                                              )
                                           ),
 
 
@@ -179,6 +184,53 @@ class _ProfileState extends State<Profile> {
                             child: Center(child: Text(
                               "Edit Profile", style: statusStile(),)),
                           ),
+                        ),
+                      ),
+                    ),
+
+                    GestureDetector(
+
+
+                      onTap: () {
+                        showModalBottomSheet(context: context,
+                            builder: (BuildContext context) {
+                              return SizedBox(
+                                height: 400,
+                                child: Container(
+                                  child: SingleChildScrollView(
+                                    child: Column(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              right: 8.0),
+                                          child: InkWell(
+                                            onTap: (){
+                                              Navigator.pop(context);
+                                            },
+                                            child: Container(
+                                              margin: EdgeInsets.only(top: 10, bottom: 15),
+                                              child: CircleAvatar(
+                                                  backgroundColor: Colors.red,
+                                                  child: Text('X', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),)),
+                                            ),
+                                          )
+                                        ),
+
+
+                                        ChangePassword(),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            });
+                      },
+
+
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          child: Text('Change Password', style: TextStyle(color: Colors.white),),
                         ),
                       ),
                     )

@@ -2,9 +2,12 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:telemedecine_app/components/global_variable.dart';
 import 'package:telemedecine_app/components/text_field.dart';
+import 'package:telemedecine_app/ui_model/home.dart';
 import 'package:wc_form_validators/wc_form_validators.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -15,6 +18,8 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+
+  final userdata = GetStorage();
 
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -43,11 +48,35 @@ class _RegisterPageState extends State<RegisterPage> {
           body: jsonEncode(body),
           headers: {'Content-Type': 'application/json'}
       );
+      print(response.body);
       if(response.statusCode == 200){
         // usernameController.text = '';
         // passwordController.text = '';
+        Get.offAll(HomePage());
+
+        var data = jsonDecode(response.body.toString());
         print('creation success');
         print('uploaded');
+
+
+
+        userdata.write('isLogged', true);
+        userdata.write('email', data['student']['email']);
+        userdata.write('name', data['student']['name']);
+        userdata.write('mobile', data['student']['mobile']);
+        userdata.write('status', data['student']['status']);
+
+        userdata.write('consultant_name', data['consultant'][0]['name']);
+        userdata.write('role', data['consultant'][0]['role']);
+        userdata.write('len', data['consultant']);
+
+        userdata.write('status_name', data['statuses'][0]['name']);
+        userdata.write('status_description', data['statuses'][0]['description']);
+        userdata.write('stat_len', data['statuses']);
+
+
+
+
         showSuccessMessage("Registration success");
       }else{
         print('creation failed');
@@ -57,7 +86,15 @@ class _RegisterPageState extends State<RegisterPage> {
       print(response.body);
   }
 
+
   GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    userdata.writeIfNull('isLogged', true);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -140,13 +177,6 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                     )),
 
-
-
-
-
-
-
-
                 Positioned(
                   top: 258,
                   left: 15,
@@ -166,85 +196,12 @@ class _RegisterPageState extends State<RegisterPage> {
                             prefixIcon: Icon(Icons.phone)
                           ),
                           validator: Validators.compose([
-                            Validators.required('phone number is required'),
+                            Validators.required('valid phone number is required'),
                           ]),
+
                         ),
                       ),
                     )),
-
-
-                // Positioned(
-                //   top: 363,
-                //   left: 15,
-                //   child: Text('password', style: TextStyle(fontSize: 13, color: Colors.black),),),
-                // Positioned(
-                //     top: 383,
-                //     //left: 15,
-                //     child: ConstrainedBox(
-                //       constraints: BoxConstraints.expand(height: 200, width: size.width*.95),
-                //       child: Padding(
-                //         padding: const EdgeInsets.only(left: 15.0, top: 2),
-                //         child: TextFormField(
-                //           controller: passwordController,
-                //           decoration: InputDecoration(
-                //               labelText: '',
-                //               border: OutlineInputBorder(),
-                //             prefixIcon: Icon(Icons.lock)
-                //           ),
-                //           validator: Validators.compose([
-                //             Validators.required('password confirmation is required'),
-                //           ]),
-                //         ),
-                //       ),
-                //     )),
-                //
-                // Positioned(
-                //   top: 478,
-                //   left: 15,
-                //   child: Text('confirm_password', style: TextStyle(fontSize: 13, color: Colors.black),),),
-                // Positioned(
-                //     top: 498,
-                //     //left: 15,
-                //     child: ConstrainedBox(
-                //       constraints: BoxConstraints.expand(height: 200, width: size.width*.95),
-                //       child: Padding(
-                //         padding: const EdgeInsets.only(left: 15.0, top: 2),
-                //         child: TextFormField(
-                //           controller: password_confirmationController,
-                //           decoration: InputDecoration(
-                //               labelText: '',
-                //               border: OutlineInputBorder(),
-                //             prefixIcon: Icon(Icons.lock)
-                //           ),
-                //           validator: Validators.compose([
-                //             Validators.required('password is required'),
-                //           ]),
-                //         ),
-                //       ),
-                //     )),
-
-
-
-
-
-
-                // Positioned(
-                //   top: 830,
-                //   left: 20,
-                //   child: GestureDetector(
-                //     onTap: (){
-                //       submitData();
-                //     },
-                //     child: Container(
-                //       height: 50,
-                //       width: 370,
-                //       decoration: BoxDecoration(
-                //       color: Colors.blue,
-                //       borderRadius: BorderRadius.circular(10),
-                //     ),
-                //     child: Center(child: Text('Register', style: TextStyle(fontSize: 25, color: Colors.black),)),
-                // ),
-                //   ),)
 
                 Positioned(
                   top: 580,
@@ -254,7 +211,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     onPressed: (){
                       if(_formkey.currentState!.validate()){
                         if(nameController.text.isNotEmpty && emailController.text.isNotEmpty
-                            && mobileController.text.isNotEmpty){
+                            && mobileController.text.length >= 9 ){
                           submitData();
                         }
                       }

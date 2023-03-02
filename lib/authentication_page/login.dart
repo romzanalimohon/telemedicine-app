@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:telemedecine_app/authentication_page/register.dart';
 import 'package:telemedecine_app/components/global_variable.dart';
 import 'package:telemedecine_app/components/nueBox.dart';
+import 'package:telemedecine_app/for_video_calling/utils/settings.dart';
 import 'package:telemedecine_app/main.dart';
 import 'package:telemedecine_app/ui_model/doctor_list.dart';
 import 'package:telemedecine_app/ui_model/home.dart';
@@ -40,17 +41,29 @@ class LoginPageState extends State<LoginPage> {
             'password' : password
           }
       );
-
-
-
+      print(response.body);
 
       if(response.statusCode == 200){
 
 
-
-
         var decode = jsonDecode(response.body.toString());
         data = decode;
+
+
+        if (_formkey.currentState!.validate()) {
+          if(emailController.text.isNotEmpty && passwordController.text.isNotEmpty){
+            // var sharedPref = await SharedPreferences.getInstance();
+            // sharedPref.setBool(MySplashAppState.KEYLOGIN, false);
+            //login(emailController.text.toString(), passwordController.text.toString());
+            //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HomePage()));
+
+            Get.offAll(()=> HomePage());
+            showSuccessMessage("login successfull");
+            //Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
+          }
+        }
+
+
         print(data['Token'].toString());
         print(data['student']['name']);
         print(data['student']['id']);
@@ -84,12 +97,9 @@ class LoginPageState extends State<LoginPage> {
         print(data['statuses'].length);
 
 
-
-
+        print(data['studentprofile'][0]);
 
         print('login success');
-        showSuccessMessage("login successfull");
-
 
       }else {
         print('failed');
@@ -153,17 +163,6 @@ class LoginPageState extends State<LoginPage> {
                         ),
                         prefixIcon: Icon(Icons.email),
                       ),
-                      // validator: (value){
-                      //   if(value!.isEmpty){
-                      //     return 'enter email';
-                      //   }
-                      //   final bool emailValid =
-                      //   RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                      //       .hasMatch(value);
-                      //   if(!emailValid){
-                      //     return 'enter valid email';
-                      //   }
-                      // },
                       validator: Validators.compose([
                         Validators.required('email is required'),
                         Validators.email('invalid email address'),
@@ -200,25 +199,12 @@ class LoginPageState extends State<LoginPage> {
                   const SizedBox(height: 25),
 
                   GestureDetector(
-                    onTap: () async{
+                    onTap: (){
                       // setState(() {
                       //   Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
                       // });
 
-                      if (_formkey.currentState!.validate()) {
-                        // If the form is valid, display a snackbar. In the real world,
-                        // you'd often call a server or save the information in a database.
-                        if(emailController.text.isNotEmpty && passwordController.text.isNotEmpty){
-                            // var sharedPref = await SharedPreferences.getInstance();
-                            // sharedPref.setBool(MySplashAppState.KEYLOGIN, false);
-                            login(emailController.text.toString(), passwordController.text.toString());
-                            //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HomePage()));
-
-                            Get.offAll(()=> HomePage());
-                            //Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
-                        }
-                      }
-
+                      login(emailController.text, passwordController.text);
 
 
 

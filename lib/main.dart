@@ -9,7 +9,6 @@ import 'package:telemedecine_app/components/text_stile.dart';
 import 'package:telemedecine_app/ui_model/doctor_list.dart';
 import 'package:telemedecine_app/ui_model/home.dart';
 import 'package:telemedecine_app/ui_model/profile.dart';
-import 'package:telemedecine_app/ui_model/profiledemo.dart';
 import 'package:telemedecine_app/ui_model/status.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';

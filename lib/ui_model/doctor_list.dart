@@ -64,30 +64,13 @@ class _DoctorListState extends State<DoctorList> {
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(100),
                                         image: DecorationImage(
-                                          image: AssetImage("assets/images/rakoon.jpg"),
+                                          image: NetworkImage('https://cdn1.iconfinder.com/data/icons/proffesion/256/Businessman-512.png'),
                                           fit: BoxFit.cover,
                                         )
                                     ),
                                   ),
                                 ),
                               ),
-
-                              ///doctors details
-                              // Padding(
-                              //   padding: const EdgeInsets.only(left: 20.0),
-                              //   child: Column(
-                              //     mainAxisAlignment: MainAxisAlignment.start,
-                              //     crossAxisAlignment: CrossAxisAlignment.start,
-                              //     children: [
-                              //       // Text('Mohammod'),
-                              //       // Text('Rahman'),
-                              //       // Text('internal'),
-                              //       // Text('ritcare'),
-                              //       // Text('office')
-                              //       Text(data[index]['title'])
-                              //     ],
-                              //   ),
-                              // ),
 
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.start,

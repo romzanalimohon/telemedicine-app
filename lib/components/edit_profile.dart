@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({Key? key}) : super(key: key);
@@ -8,14 +11,32 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
-  String? valueschoose;
-  String? valueschoose1;
+
+
+  File? image;
+  final _picker = ImagePicker();
+
+  Future getImage() async{
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+
+    if(pickedFile != null){
+      image = File(pickedFile.path);
+
+    }else{
+      print('no image selected');
+    }
+  }
+
+
+
+  var valuechooes, valuechooes1;
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return SingleChildScrollView(
         child: SizedBox(
-          height: size.height*1.2,
+          height: size.height,
           width: size.width,
           child: Stack(
             children: [
@@ -29,12 +50,60 @@ class _EditProfileState extends State<EditProfile> {
                 left: 15,
                 child: Text('__________________________________________', style: TextStyle(fontSize: 20, color: Colors.black),),
               ),
+
+
+              ///address
               Positioned(
-                top: 50,
+                top: 45.0,
                 left: 15,
-                child: Text('First Name', style: TextStyle(fontSize: 13, color: Colors.black),),),
+                child: Text('Address', style: TextStyle(fontSize: 13, color: Colors.black),),
+              ),
               Positioned(
-                  top: 70,
+                  top: 65,
+                  //left: 15,
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints.expand(height: 200, width: size.width*.95),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 15.0, top: 2),
+                      child: TextField(
+                        decoration: InputDecoration(
+                            labelText: '',
+                            border: OutlineInputBorder()
+                        ),
+                      ),
+                    ),
+                  )),
+
+              Positioned(
+                top: 140,
+                left: 15,
+                child: Text('City', style: TextStyle(fontSize: 13, color: Colors.black),),
+              ),
+
+              Positioned(
+                  top: 160,
+                  //left: 15,
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints.expand(height: 200, width: size.width*.95),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 15.0, top: 2),
+                      child: TextField(
+                        decoration: InputDecoration(
+                            labelText: '',
+                            border: OutlineInputBorder()
+                        ),
+                      ),
+                    ),
+                  )),
+
+
+
+              Positioned(
+                top: 240,
+                left: 15,
+                child: Text('Country', style: TextStyle(fontSize: 13, color: Colors.black),),),
+              Positioned(
+                  top: 260,
                   //left: 15,
                   child: ConstrainedBox(
                     constraints: BoxConstraints.expand(height: 200, width: 200),
@@ -49,15 +118,13 @@ class _EditProfileState extends State<EditProfile> {
                     ),
                   )),
 
-
-
+              Positioned(
+                top: 235,
+                left: 220,
+                child: Text('State', style: TextStyle(fontSize: 13, color: Colors.black),),),
 
               Positioned(
-                top: 50,
-                left: 214,
-                child: Text('Last Name', style: TextStyle(fontSize: 13, color: Colors.black),),),
-              Positioned(
-                  top: 70,
+                  top: 260,
                   left: 200,
                   child: ConstrainedBox(
                     constraints: BoxConstraints.expand(height: 200, width: 200),
@@ -70,121 +137,59 @@ class _EditProfileState extends State<EditProfile> {
                         ),
                       ),
                     ),
-                  )),
-
-
-
-
-              Positioned(
-                top: 150,
-                left: 15,
-                child: Text('Date of Birth', style: TextStyle(fontSize: 13, color: Colors.black),),),
-              Positioned(
-                  top: 165,
-                  //left: 15,
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints.expand(height: 200, width: 200),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 15.0, top: 2),
-                      child: TextField(
-                        decoration: InputDecoration(
-                            labelText: '',
-                            border: OutlineInputBorder()
-                        ),
-                      ),
-                    ),
-                  )),
-
-
-
-
-              Positioned(
-                top: 150,
-                left: 214,
-                child: Text('Sex', style: TextStyle(fontSize: 13, color: Colors.black),),),
-              Positioned(
-                  top: 165,
-                  left: 220,
-                  child: DropdownButton<String>(
-
-                      value: this.valueschoose,
-                      items: <String>['Male', 'Female'].map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      onChanged: (value) => setState(() => this.valueschoose = value,
-
-                      )),),
-
-
-
-
-
-
-              ///address
-              Positioned(
-                top: 250.0,
-                left: 15,
-                child: Text('Address', style: TextStyle(fontSize: 20, color: Colors.black),),
+                  )
               ),
+
+
+
               Positioned(
-                top: 257,
+                top: 380,
                 left: 15,
-                child: Text('__________________________________________', style: TextStyle(fontSize: 20, color: Colors.black),),
+                child: GestureDetector(
+                  onTap: (){
+                    setState(() {
+                      getImage();
+                    });
+                  },
+                  child: Container(
+                    color: Colors.green,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text('Upload Image', style: TextStyle(fontSize: 20, color: Colors.black),),
+                      )),
+                ),),
+
+          Positioned(
+              top: 350,
+              left: 200,
+              child: image == null
+                  ? Center(
+                      child: Image.network('https://cdn1.iconfinder.com/data/icons/proffesion/256/Businessman-512.png', height: 100, width: 100,),
+                    )
+                  : Container(
+                      child: Center(
+                        child: (Image.file(
+                          File(image!.path).absolute,
+                          height: 100,
+                          width: 100,
+                          fit: BoxFit.cover,
+                        )),
+                      ),
+                    )
+
               ),
-              Positioned(
-                top: 300,
-                left: 15,
-                child: Text('Address Line 1', style: TextStyle(fontSize: 13, color: Colors.black),),),
-              Positioned(
-                  top: 320,
-                  //left: 15,
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints.expand(height: 200, width: size.width*.95),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 15.0, top: 2),
-                      child: TextField(
-                        decoration: InputDecoration(
-                            labelText: '',
-                            border: OutlineInputBorder()
-                        ),
-                      ),
-                    ),
-                  )),
-
-              Positioned(
-                top: 410,
-                left: 15,
-                child: Text('Address Line 2', style: TextStyle(fontSize: 13, color: Colors.black),),),
-              Positioned(
-                  top: 434,
-                  //left: 15,
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints.expand(height: 200, width: size.width*.95),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 15.0, top: 2),
-                      child: TextField(
-                        decoration: InputDecoration(
-                            labelText: '',
-                            border: OutlineInputBorder()
-                        ),
-                      ),
-                    ),
-                  )),
-
-
 
               Positioned(
                 top: 520,
                 left: 15,
-                child: Text('City', style: TextStyle(fontSize: 13, color: Colors.black),),),
+                child: Text('DOB', style: TextStyle(fontSize: 20, color: Colors.black),),),
+
+
               Positioned(
-                  top: 535,
-                  //left: 15,
+                  top: 495,
+                  left: 50,
                   child: ConstrainedBox(
-                    constraints: BoxConstraints.expand(height: 200, width: 200),
+                    constraints: BoxConstraints.expand(height: 150, width: 250),
                     child: Padding(
                       padding: const EdgeInsets.only(left: 15.0, top: 2),
                       child: TextField(
@@ -194,66 +199,22 @@ class _EditProfileState extends State<EditProfile> {
                         ),
                       ),
                     ),
-                  )),
-
-
-
-
+                  )
+              ),
               Positioned(
-                top: 520,
-                left: 210,
-                child: Text('State', style: TextStyle(fontSize: 13, color: Colors.black),),),
-              Positioned(
-                  top: 525,
-                  left: 220,
-                  child: DropdownButton<String>(
-
-                      value: this.valueschoose,
-                      items: <String>['BD', 'Japan', 'Pakistan', 'Greece'].map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      onChanged: (value) => setState(() => this.valueschoose = value,
-
-                      ))),
-
-
-
-              Positioned(
-                top: 630,
-                left: 15,
-                child: Text('Zip Code', style: TextStyle(fontSize: 13, color: Colors.black),),),
-              Positioned(
-                  top: 645,
-                  //left: 15,
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints.expand(height: 200, width: 200),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 15.0, top: 2),
-                      child: TextField(
-                        decoration: InputDecoration(
-                            labelText: '',
-                            border: OutlineInputBorder()
-                        ),
-                      ),
-                    ),
-                  )),
-
-              Positioned(
-                top: 730,
+                top: 600,
                 left: 20,
                 child: Container(
-                height: 50,
-                width: 370,
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(50),
+                  height: 50,
+                  width: 370,
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: Center(child: Text('Save Changes', style: TextStyle(fontSize: 25, color: Colors.black),)),
                 ),
-                child: Center(child: Text('Submit', style: TextStyle(fontSize: 25, color: Colors.black),)),
               ),
-              ),
+
 
 
             ],
