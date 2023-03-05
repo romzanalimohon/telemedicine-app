@@ -33,6 +33,7 @@ AppBar SettingsAppBar(){
         Tab(text: 'Support',),
         Tab(text: 'Terms',),
         Tab(text: 'Privacy',),
+        Tab(text: 'Refund\n Policy',)
       ],
     ),
   );

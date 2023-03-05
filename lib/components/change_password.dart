@@ -60,10 +60,10 @@ class _ChangePasswordState extends State<ChangePassword> {
                 height: 50,
                 width: 250,
                 decoration: BoxDecoration(
-                  color: Colors.blue,
+                  color: Colors.black,
                   borderRadius: BorderRadius.circular(50),
                 ),
-                child: Center(child: Text('Save Changes', style: TextStyle(fontSize: 25, color: Colors.black),)),
+                child: Center(child: Text('Save Changes', style: TextStyle(fontSize: 25, color: Colors.white),)),
               ),
             ),
           ),

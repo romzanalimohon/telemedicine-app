@@ -141,7 +141,7 @@ class _ProfileState extends State<Profile> {
                       child: GestureDetector(
                         onTap: () {
                           showModalBottomSheet(context: context,
-                              builder: (BuildContext context) {
+                             builder: (BuildContext context) {
                                 return SizedBox(
                                   height: 400,
                                   child: Container(
@@ -171,7 +171,7 @@ class _ProfileState extends State<Profile> {
                                     ),
                                   ),
                                 );
-                              });
+                              },);
                         },
                         child: Center(
                           child: Container(

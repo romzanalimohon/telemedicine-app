@@ -61,6 +61,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
 
         userdata.write('isLogged', true);
+        userdata.write('id', data['student']['id']);
         userdata.write('email', data['student']['email']);
         userdata.write('name', data['student']['name']);
         userdata.write('mobile', data['student']['mobile']);
@@ -75,6 +76,12 @@ class _RegisterPageState extends State<RegisterPage> {
         userdata.write('stat_len', data['statuses']);
 
 
+
+        ///student profile
+        userdata.write('address', data['studentprofile']['address']);
+        userdata.write('country', data['studentprofile']['country']);
+        userdata.write('city', data['studentprofile']['city']);
+        userdata.write('state', data['studentprofile']['state']);
 
 
         showSuccessMessage("Registration success");
@@ -178,11 +185,11 @@ class _RegisterPageState extends State<RegisterPage> {
                     )),
 
                 Positioned(
-                  top: 258,
+                  top: 265,
                   left: 15,
                   child: Text('Mobile No', style: TextStyle(fontSize: 13, color: Colors.black),),),
                 Positioned(
-                    top: 273,
+                    top: 283,
                     left: 0,
                     child: ConstrainedBox(
                       constraints: BoxConstraints.expand(height: 200, width: size.width*.95),
@@ -203,21 +210,47 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                     )),
 
-                Positioned(
-                  top: 580,
-                  left: 20,
-                  child: ElevatedButton(
-                    child: Text('register'),
-                    onPressed: (){
-                      if(_formkey.currentState!.validate()){
-                        if(nameController.text.isNotEmpty && emailController.text.isNotEmpty
-                            && mobileController.text.length >= 9 ){
-                          submitData();
-                        }
+                // Positioned(
+                //   top: 580,
+                //   left: 20,
+                //   child: ElevatedButton(
+                //     child: Text('register'),
+                //     onPressed: (){
+                //       if(_formkey.currentState!.validate()){
+                //         if(nameController.text.isNotEmpty && emailController.text.isNotEmpty
+                //             && mobileController.text.length >= 9 ){
+                //           submitData();
+                //         }
+                //       }
+                //     },
+                //   ),
+                // ),
+
+
+                GestureDetector(
+                  onTap: () {
+                    if(_formkey.currentState!.validate()){
+                      if(nameController.text.isNotEmpty && emailController.text.isNotEmpty
+                          && mobileController.text.length >= 9 ){
+                        submitData();
                       }
-                    },
+                    }
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(left: 20, right: 20, top: 400),
+                    height: 50,
+                    width: 370,
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    child: Center(
+                        child: Text(
+                          'Register',
+                          style: TextStyle(fontSize: 25, color: Colors.white),
+                        )),
                   ),
-                )
+                ),
 
 
                 // Column(

@@ -1,7 +1,11 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:http/http.dart' as http;
+import 'package:telemedecine_app/components/global_variable.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({Key? key}) : super(key: key);
@@ -12,6 +16,15 @@ class EditProfile extends StatefulWidget {
 
 class _EditProfileState extends State<EditProfile> {
 
+  final userdata = GetStorage();
+
+
+
+  TextEditingController addressController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
+  TextEditingController countryController = TextEditingController();
+  TextEditingController stateController = TextEditingController();
+  TextEditingController dateController = TextEditingController();
 
   File? image;
   final _picker = ImagePicker();
@@ -29,7 +42,45 @@ class _EditProfileState extends State<EditProfile> {
 
 
 
-  var valuechooes, valuechooes1;
+  ///update user profile
+  Future<void> updateData() async{
+
+    int id = userdata.read('id');
+    print(id);
+
+    final address = addressController.text;
+    final city = cityController.text;
+    final country = countryController.text;
+    final state = stateController.text;
+    final date = dateController.text;
+    final body = {
+      "address": address,
+      "city": city,
+      "country": country,
+      "state": state,
+      "dob": date
+
+    };
+    //submit updata to the server
+    final url = '$api/updatestudent/$id';
+    final uri = Uri.parse(url);
+    final response = await http.post(uri,
+        body: jsonEncode(body),
+        headers: {'Content-Type': 'application/json'}
+    );
+    if(response.statusCode == 200){
+      print('updated');
+      print(response.body.toString());
+
+    }else{
+      print('failed');
+
+    }
+  }
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +118,7 @@ class _EditProfileState extends State<EditProfile> {
                       padding: const EdgeInsets.only(left: 15.0, top: 2),
                       child: TextField(
                         decoration: InputDecoration(
-                            labelText: '',
+                            labelText: userdata.read('address'),
                             border: OutlineInputBorder()
                         ),
                       ),
@@ -89,7 +140,7 @@ class _EditProfileState extends State<EditProfile> {
                       padding: const EdgeInsets.only(left: 15.0, top: 2),
                       child: TextField(
                         decoration: InputDecoration(
-                            labelText: '',
+                            labelText: userdata.read('city'),
                             border: OutlineInputBorder()
                         ),
                       ),
@@ -111,7 +162,6 @@ class _EditProfileState extends State<EditProfile> {
                       padding: const EdgeInsets.only(left: 15.0, top: 2),
                       child: TextField(
                         decoration: InputDecoration(
-                            labelText: '',
                             border: OutlineInputBorder()
                         ),
                       ),
@@ -132,7 +182,7 @@ class _EditProfileState extends State<EditProfile> {
                       padding: const EdgeInsets.only(left: 15.0, top: 2),
                       child: TextField(
                         decoration: InputDecoration(
-                            labelText: '',
+                            labelText: userdata.read('state').toString(),
                             border: OutlineInputBorder()
                         ),
                       ),
@@ -204,14 +254,21 @@ class _EditProfileState extends State<EditProfile> {
               Positioned(
                 top: 600,
                 left: 20,
-                child: Container(
-                  height: 50,
-                  width: 370,
-                  decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(50),
+                child: GestureDetector(
+                  onTap: (){
+                    setState(() {
+                      updateData();
+                    });
+                  },
+                  child: Container(
+                    height: 50,
+                    width: 370,
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    child: Center(child: Text('Save Changes', style: TextStyle(fontSize: 25, color: Colors.white),)),
                   ),
-                  child: Center(child: Text('Save Changes', style: TextStyle(fontSize: 25, color: Colors.black),)),
                 ),
               ),
 

@@ -69,11 +69,11 @@ class LoginPageState extends State<LoginPage> {
         print(data['student']['id']);
 
 
-
         print(data);
 
 
         userdata.write('isLogged', true);
+        userdata.write('id', data['student']['id']);
         userdata.write('email', data['student']['email']);
         userdata.write('name', data['student']['name']);
         userdata.write('mobile', data['student']['mobile']);
@@ -88,6 +88,19 @@ class LoginPageState extends State<LoginPage> {
         userdata.write('stat_len', data['statuses']);
 
 
+        ///student profile
+        userdata.write('address', data['studentprofile']['address']);
+        userdata.write('country', data['studentprofile']['country']);
+        userdata.write('city', data['studentprofile']['city']);
+        userdata.write('state', data['studentprofile']['state']);
+
+        print(data['studentprofile']['address']);
+        print(data['studentprofile']['country']);
+        print(data['studentprofile']['city']);
+        print(data['studentprofile']['state']);
+
+
+
         //print(data.student.consultant[0]['name']);
         print(data['consultant'][0]['name']);
         print(data['consultant'].length);
@@ -97,7 +110,7 @@ class LoginPageState extends State<LoginPage> {
         print(data['statuses'].length);
 
 
-        print(data['studentprofile'][0]);
+
 
         print('login success');
 

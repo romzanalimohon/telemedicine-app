@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return DefaultTabController(
       initialIndex: 1,
-      length: 3,
+      length: 4,
       child: Scaffold(
         appBar: app_bar[_currentIndex],
         body: tabs[_currentIndex],
