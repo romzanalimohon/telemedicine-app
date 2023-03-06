@@ -20,10 +20,10 @@ class _EditProfileState extends State<EditProfile> {
 
 
 
-  TextEditingController addressController = TextEditingController();
-  TextEditingController cityController = TextEditingController();
-  TextEditingController countryController = TextEditingController();
-  TextEditingController stateController = TextEditingController();
+  TextEditingController addressController = TextEditingController()..text = 'Mirpur';
+  TextEditingController cityController = TextEditingController()..text = 'Dhaka';
+  TextEditingController countryController = TextEditingController()..text = 'Bangladesh';
+  TextEditingController stateController = TextEditingController()..text = 'Chandpur';
   TextEditingController dateController = TextEditingController();
 
 
@@ -53,7 +53,7 @@ class _EditProfileState extends State<EditProfile> {
     final city = cityController.text;
     final country = countryController.text;
     final state = stateController.text;
-    final date = dateController.text.toString();
+    final date = dateController.text;
     final body = {
       "address": address,
       "city": city,
@@ -62,7 +62,6 @@ class _EditProfileState extends State<EditProfile> {
       "dob": date
 
     };
-    //submit updata to the server
     final url = '$api/updatestudent/$id';
     final uri = Uri.parse(url);
     final response = await http.post(uri,
@@ -118,8 +117,8 @@ class _EditProfileState extends State<EditProfile> {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 15.0, top: 2),
                       child: TextField(
+                        controller: addressController,
                         decoration: InputDecoration(
-                            labelText: userdata.read('address'),
                             border: OutlineInputBorder()
                         ),
                       ),
@@ -140,8 +139,8 @@ class _EditProfileState extends State<EditProfile> {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 15.0, top: 2),
                       child: TextField(
+                        controller: cityController,
                         decoration: InputDecoration(
-                            labelText: userdata.read('city'),
                             border: OutlineInputBorder()
                         ),
                       ),
@@ -162,6 +161,7 @@ class _EditProfileState extends State<EditProfile> {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 15.0, top: 2),
                       child: TextField(
+                        controller: countryController,
                         decoration: InputDecoration(
                             border: OutlineInputBorder()
                         ),
@@ -182,8 +182,9 @@ class _EditProfileState extends State<EditProfile> {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 15.0, top: 2),
                       child: TextField(
+                        controller: stateController,
                         decoration: InputDecoration(
-                            labelText: userdata.read('state').toString(),
+                            //labelText: ,
                             border: OutlineInputBorder()
                         ),
                       ),

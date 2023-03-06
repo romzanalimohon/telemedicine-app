@@ -12,7 +12,7 @@ class IndexPage extends StatefulWidget {
 
 class IndexState extends State<IndexPage> {
   /// create a channelController to retrieve text value
-  final _channelController = TextEditingController();
+  final _channelController = TextEditingController()..text = 'channel';
 
 
   /// if channel textField is validated to have error
