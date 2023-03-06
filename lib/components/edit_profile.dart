@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:telemedecine_app/components/global_variable.dart';
 
 class EditProfile extends StatefulWidget {
@@ -25,6 +25,7 @@ class _EditProfileState extends State<EditProfile> {
   TextEditingController countryController = TextEditingController();
   TextEditingController stateController = TextEditingController();
   TextEditingController dateController = TextEditingController();
+
 
   File? image;
   final _picker = ImagePicker();
@@ -52,7 +53,7 @@ class _EditProfileState extends State<EditProfile> {
     final city = cityController.text;
     final country = countryController.text;
     final state = stateController.text;
-    final date = dateController.text;
+    final date = dateController.text.toString();
     final body = {
       "address": address,
       "city": city,
@@ -87,7 +88,7 @@ class _EditProfileState extends State<EditProfile> {
     var size = MediaQuery.of(context).size;
     return SingleChildScrollView(
         child: SizedBox(
-          height: size.height,
+          height: size.height*1.2,
           width: size.width,
           child: Stack(
             children: [
@@ -192,41 +193,71 @@ class _EditProfileState extends State<EditProfile> {
 
 
 
-              Positioned(
-                top: 380,
-                left: 15,
-                child: GestureDetector(
-                  onTap: (){
-                    setState(() {
-                      getImage();
-                    });
-                  },
-                  child: Container(
-                    color: Colors.green,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text('Upload Image', style: TextStyle(fontSize: 20, color: Colors.black),),
-                      )),
-                ),),
+          //     Positioned(
+          //       top: 380,
+          //       left: 15,
+          //       child: GestureDetector(
+          //         onTap: (){
+          //           setState(() {
+          //             getImage();
+          //           });
+          //         },
+          //         child: Container(
+          //           color: Colors.green,
+          //             child: Padding(
+          //               padding: const EdgeInsets.all(8.0),
+          //               child: Text('Upload Image', style: TextStyle(fontSize: 20, color: Colors.black),),
+          //             )),
+          //       ),),
+          //
+          // Positioned(
+          //     top: 350,
+          //     left: 200,
+          //     child: image == null
+          //         ? Center(
+          //             child: Image.network('https://cdn1.iconfinder.com/data/icons/proffesion/256/Businessman-512.png', height: 100, width: 100,),
+          //           )
+          //         : Container(
+          //             child: Center(
+          //               child: (Image.file(
+          //                 File(image!.path).absolute,
+          //                 height: 100,
+          //                 width: 100,
+          //                 fit: BoxFit.cover,
+          //               )),
+          //             ),
+          //           )
+          //
+          //     ),
 
-          Positioned(
-              top: 350,
-              left: 200,
-              child: image == null
-                  ? Center(
-                      child: Image.network('https://cdn1.iconfinder.com/data/icons/proffesion/256/Businessman-512.png', height: 100, width: 100,),
-                    )
-                  : Container(
+
+              Positioned(
+                top: 340,
+                left: 150,
+                child: GestureDetector(
+                  onTap: getImage,
+                  child: Container(
+                    child: image == null ?
+                    Center(child: Image.network('https://cdn1.iconfinder.com/data/icons/proffesion/256/Businessman-512.png', height: 100, width: 100,),)
+                        : Container(
                       child: Center(
-                        child: (Image.file(
+                        child: Image.file(
                           File(image!.path).absolute,
                           height: 100,
                           width: 100,
                           fit: BoxFit.cover,
-                        )),
+                        ),
                       ),
-                    )
-
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 450,
+                left: 140,
+                child: Container(
+                  child: Center(child: Text('Profile Image', style: TextStyle(fontSize: 20),)),
+                ),
               ),
 
               Positioned(
@@ -243,10 +274,24 @@ class _EditProfileState extends State<EditProfile> {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 15.0, top: 2),
                       child: TextField(
+                        controller: dateController,
                         decoration: InputDecoration(
-                            labelText: '',
+                            icon: Icon(Icons.calendar_today_rounded),
+                            labelText: 'Select Date',
                             border: OutlineInputBorder()
                         ),
+                        onTap: () async{
+                          DateTime? pickedDate = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(1990),
+                              lastDate: DateTime(2101));
+                          if(pickedDate != null){
+                            setState(() {
+                              dateController.text = DateFormat('MM/dd/yyy').format(pickedDate);
+                            });
+                          }
+                        },
                       ),
                     ),
                   )

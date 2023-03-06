@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 TextStyle appBarStyle(){
   return GoogleFonts.anton(
-      fontSize: 25,
+      fontSize: 32,
       color: Colors.black
   );
 }

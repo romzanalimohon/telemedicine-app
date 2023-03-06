@@ -3,15 +3,10 @@ import 'package:get_storage/get_storage.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:telemedecine_app/authentication_page/register.dart';
 import 'package:telemedecine_app/components/global_variable.dart';
 import 'package:telemedecine_app/components/nueBox.dart';
-import 'package:telemedecine_app/for_video_calling/utils/settings.dart';
-import 'package:telemedecine_app/main.dart';
-import 'package:telemedecine_app/ui_model/doctor_list.dart';
 import 'package:telemedecine_app/ui_model/home.dart';
-import 'package:telemedecine_app/ui_model/profile.dart';
 import 'package:wc_form_validators/wc_form_validators.dart';
 
 class LoginPage extends StatefulWidget {
@@ -58,7 +53,7 @@ class LoginPageState extends State<LoginPage> {
             //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HomePage()));
 
             Get.offAll(()=> HomePage());
-            showSuccessMessage("login successfull");
+            showSuccessMessage("you have successfully logged in");
             //Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
           }
         }

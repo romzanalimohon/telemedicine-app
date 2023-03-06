@@ -141,32 +141,36 @@ class _ProfileState extends State<Profile> {
                       child: GestureDetector(
                         onTap: () {
                           showModalBottomSheet(context: context,
+                             isScrollControlled: true,
                              builder: (BuildContext context) {
-                                return SizedBox(
-                                  height: 400,
-                                  child: Container(
-                                    child: SingleChildScrollView(
-                                      child: Column(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                right: 8.0),
-                                              child: InkWell(
-                                                onTap: (){
-                                                  Navigator.pop(context);
-                                                },
-                                                child: Container(
-                                                  margin: EdgeInsets.only(top: 10, bottom: 15),
-                                                  child: CircleAvatar(
-                                                      backgroundColor: Colors.red,
-                                                      child: Text('X', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),)),
-                                                ),
-                                              )
-                                          ),
+                                return FractionallySizedBox(
+                                  heightFactor: .9,
+                                  child: SizedBox(
+                                    height: 400,
+                                    child: Container(
+                                      child: SingleChildScrollView(
+                                        child: Column(
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 8.0),
+                                                child: InkWell(
+                                                  onTap: (){
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: Container(
+                                                    margin: EdgeInsets.only(top: 10, bottom: 15),
+                                                    child: CircleAvatar(
+                                                        backgroundColor: Colors.red,
+                                                        child: Text('X', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),)),
+                                                  ),
+                                                )
+                                            ),
 
 
-                                          EditProfile(),
-                                        ],
+                                            EditProfile(),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -193,32 +197,36 @@ class _ProfileState extends State<Profile> {
 
                       onTap: () {
                         showModalBottomSheet(context: context,
+                            isScrollControlled: true,
                             builder: (BuildContext context) {
-                              return SizedBox(
-                                height: 400,
-                                child: Container(
-                                  child: SingleChildScrollView(
-                                    child: Column(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              right: 8.0),
-                                          child: InkWell(
-                                            onTap: (){
-                                              Navigator.pop(context);
-                                            },
-                                            child: Container(
-                                              margin: EdgeInsets.only(top: 10, bottom: 15),
-                                              child: CircleAvatar(
-                                                  backgroundColor: Colors.red,
-                                                  child: Text('X', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),)),
-                                            ),
-                                          )
-                                        ),
+                              return FractionallySizedBox(
+                                heightFactor: .8,
+                                child: SizedBox(
+                                  height: 400,
+                                  child: Container(
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 8.0),
+                                            child: InkWell(
+                                              onTap: (){
+                                                Navigator.pop(context);
+                                              },
+                                              child: Container(
+                                                margin: EdgeInsets.only(top: 10, bottom: 15),
+                                                child: CircleAvatar(
+                                                    backgroundColor: Colors.red,
+                                                    child: Text('X', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),)),
+                                              ),
+                                            )
+                                          ),
 
 
-                                        ChangePassword(),
-                                      ],
+                                          ChangePassword(),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),

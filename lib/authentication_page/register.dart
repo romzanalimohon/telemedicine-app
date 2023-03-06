@@ -1,12 +1,9 @@
 import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:telemedecine_app/components/global_variable.dart';
-import 'package:telemedecine_app/components/text_field.dart';
 import 'package:telemedecine_app/ui_model/home.dart';
 import 'package:wc_form_validators/wc_form_validators.dart';
 
@@ -24,22 +21,18 @@ class _RegisterPageState extends State<RegisterPage> {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
-  //TextEditingController passwordController = TextEditingController();
-  //TextEditingController password_confirmationController = TextEditingController();
+
 
   Future<void> submitData() async{
     final name = nameController.text;
     final email = emailController.text;
     final mobile = mobileController.text;
-    //final password = passwordController.text;
-    //final password_confirmation = password_confirmationController.text;
+
 
       final body = {
         "name": name,
         "email": email,
         "mobile": mobile,
-        //"password": password,
-       // "password_confirmation": password_confirmation
       };
       //submit data to the server
       final url = '$api/registration';
@@ -50,8 +43,6 @@ class _RegisterPageState extends State<RegisterPage> {
       );
       print(response.body);
       if(response.statusCode == 200){
-        // usernameController.text = '';
-        // passwordController.text = '';
         Get.offAll(HomePage());
 
         var data = jsonDecode(response.body.toString());
@@ -149,7 +140,6 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       validator: Validators.compose([
                         Validators.required('name is required'),
-                        //Validators.email('invalid email address'),
                       ]),
                     ),
                   ),
@@ -210,22 +200,6 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                     )),
 
-                // Positioned(
-                //   top: 580,
-                //   left: 20,
-                //   child: ElevatedButton(
-                //     child: Text('register'),
-                //     onPressed: (){
-                //       if(_formkey.currentState!.validate()){
-                //         if(nameController.text.isNotEmpty && emailController.text.isNotEmpty
-                //             && mobileController.text.length >= 9 ){
-                //           submitData();
-                //         }
-                //       }
-                //     },
-                //   ),
-                // ),
-
 
                 GestureDetector(
                   onTap: () {
@@ -251,27 +225,6 @@ class _RegisterPageState extends State<RegisterPage> {
                         )),
                   ),
                 ),
-
-
-                // Column(
-                //   children: [
-                //     Padding(
-                //       padding: const EdgeInsets.only(left: 15.0, top: 10),
-                //       child: Text('About you', style: TextStyle(fontSize: 20, color: Colors.black),),
-                //     ),
-                //     const Divider(
-                //       height: 10,
-                //       thickness: 2,
-                //       indent: 20,
-                //       endIndent: 10,
-                //       color: Colors.black,
-                //     ),
-                //   ],
-                // ),
-                //
-                // Positioned(
-                //   top: 50,
-                //   child: Text('First Name', style: TextStyle(fontSize: 13, color: Colors.black),),)
               ],
             ),
           ),

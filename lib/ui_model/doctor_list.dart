@@ -85,7 +85,7 @@ class _DoctorListState extends State<DoctorList> {
 
                                   SizedBox(
                                     child: Text('Role: '+userdata.read('role').toString(), style: GoogleFonts.lato(
-                                        textStyle: TextStyle(fontSize: 20)
+                                        textStyle: TextStyle(fontSize: 16)
                                     ),),
                                   ),
                                 ],

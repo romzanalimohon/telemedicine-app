@@ -14,6 +14,7 @@ class IndexState extends State<IndexPage> {
   /// create a channelController to retrieve text value
   final _channelController = TextEditingController();
 
+
   /// if channel textField is validated to have error
   bool _validateError = false;
 
@@ -49,7 +50,7 @@ class IndexState extends State<IndexPage> {
                         border: UnderlineInputBorder(
                           borderSide: BorderSide(width: 1),
                         ),
-                        hintText: 'Channel name',
+                        //hintText: 'Channel name',
                       ),
                     ),
                   )
@@ -119,6 +120,7 @@ class IndexState extends State<IndexPage> {
 
   Future<void> onJoin() async {
     // update input validation
+    //_channelController.text = "channel";
     setState(() {
       _channelController.text.isEmpty
           ? _validateError = true

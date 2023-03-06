@@ -46,6 +46,7 @@ dependencies:
   shared_preferences:
   get_storage: ^2.0.3
   image_picker: ^0.8.6+4
+  intl: ^0.18.0
 
 dev_dependencies:
   flutter_test:

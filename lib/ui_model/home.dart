@@ -57,7 +57,7 @@ class _HomePageState extends State<HomePage> {
           selectedFontSize: 16,
           items: [
             BottomNavigationBarItem(
-                icon: Icon(Icons.medical_information_outlined),
+                icon: Icon(Icons.account_box),
                 label: 'Consultant',
             ),
             BottomNavigationBarItem(
