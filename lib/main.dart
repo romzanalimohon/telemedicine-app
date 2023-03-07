@@ -1,19 +1,10 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:telemedecine_app/authentication_page/login.dart';
-import 'package:telemedecine_app/authentication_page/register.dart';
-import 'package:telemedecine_app/components/text_stile.dart';
-import 'package:telemedecine_app/ui_model/doctor_list.dart';
 import 'package:telemedecine_app/ui_model/home.dart';
-import 'package:telemedecine_app/ui_model/profile.dart';
-import 'package:telemedecine_app/ui_model/status.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-
-import '../utils/routes.dart';
 
 void main() async{
   await GetStorage.init();

@@ -59,6 +59,9 @@ class LoginPageState extends State<LoginPage> {
         }
 
 
+        print(data['studentprofile']['address']);
+
+
         print(data['Token'].toString());
         print(data['student']['name']);
         print(data['student']['id']);
@@ -68,6 +71,14 @@ class LoginPageState extends State<LoginPage> {
 
 
         userdata.write('isLogged', true);
+
+        userdata.write('address', data['studentprofile']['address']);
+        userdata.write('city', data['studentprofile']['city']);
+        userdata.write('country', data['studentprofile']['country']);
+        userdata.write('state', data['studentprofile']['state']);
+        userdata.write('dob', data['studentprofile']['dob']);
+        userdata.write('image', data['studentprofile']['image']);
+
         userdata.write('id', data['student']['id']);
         userdata.write('email', data['student']['email']);
         userdata.write('name', data['student']['name']);
@@ -84,15 +95,15 @@ class LoginPageState extends State<LoginPage> {
 
 
         ///student profile
-        userdata.write('address', data['studentprofile']['address']);
-        userdata.write('country', data['studentprofile']['country']);
-        userdata.write('city', data['studentprofile']['city']);
-        userdata.write('state', data['studentprofile']['state']);
+        // userdata.write('address', data['studentprofile']['address']);
+        // userdata.write('country', data['studentprofile']['country']);
+        // userdata.write('city', data['studentprofile']['city']);
+        // userdata.write('state', data['studentprofile']['state']);
 
-        print(data['studentprofile']['address']);
-        print(data['studentprofile']['country']);
-        print(data['studentprofile']['city']);
-        print(data['studentprofile']['state']);
+
+        // print(data['studentprofile']['country']);
+        // print(data['studentprofile']['city']);
+        // print(data['studentprofile']['state']);
 
 
 

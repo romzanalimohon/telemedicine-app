@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:path/path.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
@@ -6,7 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:telemedecine_app/components/global_variable.dart';
-
+final userdata = GetStorage();
 class EditProfile extends StatefulWidget {
   const EditProfile({Key? key}) : super(key: key);
 
@@ -16,14 +17,13 @@ class EditProfile extends StatefulWidget {
 
 class _EditProfileState extends State<EditProfile> {
 
-  final userdata = GetStorage();
 
 
 
-  TextEditingController addressController = TextEditingController()..text = 'Mirpur';
-  TextEditingController cityController = TextEditingController()..text = 'Dhaka';
-  TextEditingController countryController = TextEditingController()..text = 'Bangladesh';
-  TextEditingController stateController = TextEditingController()..text = 'Chandpur';
+  TextEditingController addressController = TextEditingController()..text = userdata.read('address');
+  TextEditingController cityController = TextEditingController()..text = userdata.read('city').toString();
+  TextEditingController countryController = TextEditingController()..text = userdata.read('country').toString();
+  TextEditingController stateController = TextEditingController()..text = userdata.read('state').toString();
   TextEditingController dateController = TextEditingController();
 
 
@@ -44,40 +44,40 @@ class _EditProfileState extends State<EditProfile> {
 
 
   ///update user profile
-  Future<void> updateData() async{
-
+  Future<void> updateData() async {
     int id = userdata.read('id');
-    print(id);
-
-    final address = addressController.text;
-    final city = cityController.text;
-    final country = countryController.text;
-    final state = stateController.text;
-    final date = dateController.text;
-    final body = {
-      "address": address,
-      "city": city,
-      "country": country,
-      "state": state,
-      "dob": date
-
-    };
     final url = '$api/updatestudent/$id';
     final uri = Uri.parse(url);
-    final response = await http.post(uri,
-        body: jsonEncode(body),
-        headers: {'Content-Type': 'application/json'}
-    );
-    if(response.statusCode == 200){
-      print('updated');
-      print(response.body.toString());
 
-    }else{
-      print('failed');
+    ///to upload image
+    // var stream = http.ByteStream(image!.openRead());
+    // stream.cast();
+    // var length = await image!.length();
+    var request = new http.MultipartRequest('POST', uri);
+    // var multipart = new http.MultipartFile(
+    //     'image', stream, length, filename: basename(image!.path));
 
+    request.fields['address'] = addressController.text;
+    request.fields['city'] = cityController.text;
+    request.fields['country'] = countryController.text;
+    request.fields['state'] = stateController.text;
+    request.fields['dob'] = dateController.text;
+    //request.files.add(multipart);
+
+    var response = await request.send();
+
+    if (response.statusCode == 200) {
+
+      //request.files.remove(multipart);
+      setState(() {
+        image = null;
+      });
+      print('creation success');
+      print('uploaded');
+    } else {
+      print('creation failed');
     }
   }
-
 
 
 
@@ -301,11 +301,7 @@ class _EditProfileState extends State<EditProfile> {
                 top: 600,
                 left: 20,
                 child: GestureDetector(
-                  onTap: (){
-                    setState(() {
-                      updateData();
-                    });
-                  },
+                  onTap: updateData,
                   child: Container(
                     height: 50,
                     width: 370,

@@ -52,6 +52,18 @@ class _RegisterPageState extends State<RegisterPage> {
 
 
         userdata.write('isLogged', true);
+
+
+
+        userdata.write('address', data['studentprofile']['address']);
+        userdata.write('city', data['studentprofile']['city']);
+        userdata.write('country', data['studentprofile']['country']);
+        userdata.write('state', data['studentprofile']['state']);
+        userdata.write('dob', data['studentprofile']['dob']);
+        userdata.write('image', data['studentprofile']['image']);
+
+
+
         userdata.write('id', data['student']['id']);
         userdata.write('email', data['student']['email']);
         userdata.write('name', data['student']['name']);

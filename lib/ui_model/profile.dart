@@ -53,6 +53,7 @@ class _ProfileState extends State<Profile> {
                               borderRadius: BorderRadius.circular(100),
                               image: DecorationImage(
                                 image: new NetworkImage('https://cdn1.iconfinder.com/data/icons/proffesion/256/Businessman-512.png'),
+                                //image: NetworkImage(userdata.read('image').toString()),
                                 fit: BoxFit.cover,
                               )
                           ),
