@@ -50,19 +50,19 @@ class _EditProfileState extends State<EditProfile> {
     final uri = Uri.parse(url);
 
     ///to upload image
-    // var stream = http.ByteStream(image!.openRead());
-    // stream.cast();
-    // var length = await image!.length();
+    var stream = http.ByteStream(image!.openRead());
+    stream.cast();
+    var length = await image!.length();
     var request = new http.MultipartRequest('POST', uri);
-    // var multipart = new http.MultipartFile(
-    //     'image', stream, length, filename: basename(image!.path));
+    var multipart = new http.MultipartFile(
+        'image', stream, length, filename: basename(image!.path));
 
     request.fields['address'] = addressController.text;
     request.fields['city'] = cityController.text;
     request.fields['country'] = countryController.text;
     request.fields['state'] = stateController.text;
     request.fields['dob'] = dateController.text;
-    //request.files.add(multipart);
+    request.files.add(multipart);
 
     var response = await request.send();
 
@@ -261,44 +261,9 @@ class _EditProfileState extends State<EditProfile> {
                 ),
               ),
 
+
               Positioned(
                 top: 520,
-                left: 15,
-                child: Text('DOB', style: TextStyle(fontSize: 20, color: Colors.black),),),
-
-
-              Positioned(
-                  top: 495,
-                  left: 50,
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints.expand(height: 150, width: 250),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 15.0, top: 2),
-                      child: TextField(
-                        controller: dateController,
-                        decoration: InputDecoration(
-                            icon: Icon(Icons.calendar_today_rounded),
-                            labelText: 'Select Date',
-                            border: OutlineInputBorder()
-                        ),
-                        onTap: () async{
-                          DateTime? pickedDate = await showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime(1990),
-                              lastDate: DateTime(2101));
-                          if(pickedDate != null){
-                            setState(() {
-                              dateController.text = DateFormat('MM/dd/yyy').format(pickedDate);
-                            });
-                          }
-                        },
-                      ),
-                    ),
-                  )
-              ),
-              Positioned(
-                top: 600,
                 left: 20,
                 child: GestureDetector(
                   onTap: updateData,
