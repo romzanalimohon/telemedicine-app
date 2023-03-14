@@ -34,11 +34,11 @@ class _ProfileState extends State<Profile> {
         child: Column(
           children: [
             Card(
-              margin: EdgeInsets.all(10),
+              //margin: EdgeInsets.all(10),
               child: Container(
                 height: size.height * .332,
-                width: size.width,
-                color: Colors.black,
+                width: size.width * .95,
+                color: Colors.brown,
                 child: Column(
                   children: [
 
@@ -85,6 +85,7 @@ class _ProfileState extends State<Profile> {
               padding: const EdgeInsets.all(10.0),
               child: Container(
                 height: size.height * .44,
+                width: size.width * .95,
                 color: Colors.black,
                 child: Column(
                   children: [

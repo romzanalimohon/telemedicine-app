@@ -54,6 +54,11 @@ class _RegisterPageState extends State<RegisterPage> {
         userdata.write('isLogged', true);
 
 
+        userdata.write('id', data['student']['id']);
+        userdata.write('email', data['student']['email']);
+        userdata.write('name', data['student']['name']);
+        userdata.write('mobile', data['student']['mobile']);
+        userdata.write('status', data['student']['status']);
 
         userdata.write('address', data['studentprofile']['address']);
         userdata.write('city', data['studentprofile']['city']);
@@ -62,11 +67,7 @@ class _RegisterPageState extends State<RegisterPage> {
         userdata.write('image', data['studentprofile']['image']);
 
 
-        userdata.write('id', data['student']['id']);
-        userdata.write('email', data['student']['email']);
-        userdata.write('name', data['student']['name']);
-        userdata.write('mobile', data['student']['mobile']);
-        userdata.write('status', data['student']['status']);
+
 
         userdata.write('consultant_name', data['consultant'][0]['name']);
         userdata.write('role', data['consultant'][0]['role']);
@@ -222,8 +223,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   },
                   child: Container(
                     margin: EdgeInsets.only(left: 20, right: 20, top: 400),
-                    height: 50,
-                    width: 370,
+                    height: size.height * .07,
+                    width: size.width * .9,
                     decoration: BoxDecoration(
                       color: Colors.black,
                       borderRadius: BorderRadius.circular(50),

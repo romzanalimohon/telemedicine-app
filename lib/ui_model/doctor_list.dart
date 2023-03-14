@@ -18,31 +18,26 @@ class _DoctorListState extends State<DoctorList> {
 
   @override
   Widget build(BuildContext context) {
-    List<String> entries = <String>['a','b','c','d','a','b','c','d','a','b','c','d',];
-    List<int> colorCodes = <int>[600,500,200,300];
+
     var size = MediaQuery.of(context).size;
     return SizedBox(
       height: size.height,
       child: Column(
         children: [
-          // Center(child: Padding(
-          //   padding: const EdgeInsets.only(top: 8.0),
-          //   child: Text('Doctors'),
-          // )),
 
           SizedBox(height: 20,),
 
             Expanded(
                 child: ListView.builder(
-                  scrollDirection: Axis.vertical,
+                    scrollDirection: Axis.vertical,
                     //shrinkWrap: true,
                     //itemCount: data == null? 0 : data.length,
-                    itemCount: userdata.read('len').length,
+                    itemCount: 1,
                     itemBuilder: (context, int index){
                       return Card(
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          side: BorderSide(color: Colors.white24, width: 1)
+                            borderRadius: BorderRadius.circular(20),
+                            side: BorderSide(color: Colors.white24, width: 1)
                         ),
                         elevation: 5,
                         margin: EdgeInsets.only(left: 5, right: 5, bottom: 16),
@@ -79,7 +74,7 @@ class _DoctorListState extends State<DoctorList> {
                                   SizedBox(
                                     width: 150,
                                     child: Text(userdata.read('consultant_name').toString(), style: GoogleFonts.lato(
-                                        textStyle: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                                      textStyle: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                                     ),),
                                   ),
 
@@ -116,7 +111,7 @@ class _DoctorListState extends State<DoctorList> {
                           ),
                         ),
                       );
-                    }),
+                    })
             ),
         ],
       ),

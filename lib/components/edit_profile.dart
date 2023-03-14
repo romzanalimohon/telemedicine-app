@@ -68,6 +68,7 @@ class _EditProfileState extends State<EditProfile> {
 
     if (response.statusCode == 200) {
 
+      image?.delete();
       //request.files.remove(multipart);
       setState(() {
         image = null;

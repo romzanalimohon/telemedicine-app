@@ -11,6 +11,7 @@ void main() async{
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData.light(),
       home: MySplashApp(),
     )
   );

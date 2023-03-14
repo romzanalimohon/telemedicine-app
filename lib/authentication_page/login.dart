@@ -134,7 +134,7 @@ class LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context);
+    var size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.grey[300],
       body: SafeArea(
@@ -170,7 +170,7 @@ class LoginPageState extends State<LoginPage> {
 
                   // username textfield
                   Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.only(left: 20.0, right: 20, bottom: 20),
                     child: TextFormField(
                       controller: emailController,
                       decoration: const InputDecoration(
@@ -193,7 +193,7 @@ class LoginPageState extends State<LoginPage> {
 
                   // password textfield
                   Padding(
-                    padding: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.only(left: 20.0, right: 20, bottom: 20),
                     child: TextFormField(
                       obscureText: true,
                       keyboardType: TextInputType.emailAddress,
@@ -230,8 +230,8 @@ class LoginPageState extends State<LoginPage> {
 
                     },
                     child: Container(
-                      height: 50,
-                      width: 330,
+                      height: size.height * .07,
+                      width: size.width * .8,
                       decoration: BoxDecoration(
                         color: Colors.blue,
                         borderRadius: BorderRadius.circular(10),
@@ -250,8 +250,8 @@ class LoginPageState extends State<LoginPage> {
                       });
                     },
                     child: Container(
-                      height: 50,
-                      width: 330,
+                      height: size.height * .07,
+                      width: size.width * .8,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
@@ -259,20 +259,6 @@ class LoginPageState extends State<LoginPage> {
                       child: Center(child: Text('Register', style: TextStyle(fontSize: 25, color: Colors.black),)),
                     ),
                   ),
-
-
-                  const SizedBox(height: 20),
-
-                  // forgot password?
-                  Center(
-                    child: Text(
-                      'Forgot Password?',
-                      style: TextStyle(color: Colors.grey[600]),
-                    ),
-                  ),
-
-                  const SizedBox(height: 50),
-
 
                 ],
               ),
