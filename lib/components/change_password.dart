@@ -1,4 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:http/http.dart' as http;
+import 'package:telemedecine_app/components/global_variable.dart';
 
 class ChangePassword extends StatefulWidget {
   const ChangePassword({Key? key}) : super(key: key);
@@ -9,7 +14,43 @@ class ChangePassword extends StatefulWidget {
 
 class _ChangePasswordState extends State<ChangePassword> {
 
+  TextEditingController oldPasswordController = TextEditingController();
+  TextEditingController newPasswordController = TextEditingController();
+
   GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+
+
+  final userdata = GetStorage();
+
+
+  Future<void> changePassword(int id) async{
+    final oldPassword = oldPasswordController.text;
+    final newPassword = newPasswordController.text;
+    final body = {
+      "old_password": oldPassword,
+      "new_password": newPassword,
+    };
+    //submit data to the server
+    final url = '$api/password/update/$id';
+    final uri = Uri.parse(url);
+    final response = await http.post(uri,
+        body: jsonEncode(body),
+        headers: {'Content-Type': 'application/json'}
+    );
+    print(response.statusCode);
+    if(response.statusCode == 200){
+      oldPasswordController.text = '';
+      newPasswordController.text = '';
+      print('password changed');
+    }else{
+      print('update failed');
+      //print(response.body);
+    }
+
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +73,12 @@ class _ChangePasswordState extends State<ChangePassword> {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 15.0, top: 15),
-              child: Text('New Password', style: TextStyle(fontSize: 13, color: Colors.black),),
+              child: Text('Old Password', style: TextStyle(fontSize: 13, color: Colors.black),),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 15.0, top: 5, right: 15),
               child: TextFormField(
+                controller: oldPasswordController,
                 obscureText: true,
                 keyboardType: TextInputType.emailAddress,
                 //controller: passwordController,
@@ -59,11 +101,12 @@ class _ChangePasswordState extends State<ChangePassword> {
 
             Padding(
               padding: const EdgeInsets.only(left: 15.0, top: 15),
-              child: Text('Confirm Password', style: TextStyle(fontSize: 13, color: Colors.black),),
+              child: Text('New Password', style: TextStyle(fontSize: 13, color: Colors.black),),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 15.0, top: 5, right: 15),
               child: TextFormField(
+                controller: newPasswordController,
                 obscureText: true,
                 keyboardType: TextInputType.emailAddress,
                 //controller: passwordController,
@@ -87,14 +130,23 @@ class _ChangePasswordState extends State<ChangePassword> {
             Center(
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
-                child: Container(
-                  height: 50,
-                  width: 250,
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(50),
+                child: GestureDetector(
+
+                  onTap: (){
+                    setState(() {
+                      changePassword(userdata.read('id'));
+                    });
+                  },
+
+                  child: Container(
+                    height: 50,
+                    width: 250,
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    child: Center(child: Text('Save Changes', style: TextStyle(fontSize: 25, color: Colors.white),)),
                   ),
-                  child: Center(child: Text('Save Changes', style: TextStyle(fontSize: 25, color: Colors.white),)),
                 ),
               ),
             ),

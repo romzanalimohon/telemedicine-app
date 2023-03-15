@@ -18,6 +18,7 @@ class EditProfile extends StatefulWidget {
 class _EditProfileState extends State<EditProfile> {
 
 
+  final userImage = GetStorage();
 
 
   TextEditingController addressController = TextEditingController()..text = userdata.read('address');
@@ -63,6 +64,9 @@ class _EditProfileState extends State<EditProfile> {
     request.fields['state'] = stateController.text;
     request.fields['dob'] = dateController.text;
     request.files.add(multipart);
+    print(image);
+
+
 
     var response = await request.send();
 

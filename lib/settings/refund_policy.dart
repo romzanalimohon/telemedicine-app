@@ -11,7 +11,7 @@ class RefundPolicy extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: 5,),
-            Text('Refund Policy', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+            Center(child: Text('Refund Policy', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),)),
             SizedBox(height: 8,),
             Text('''Payments for the services offered by ticonsultancy.co.uk shall be on a 100% advance basis. (Unless an exception made under a special offer) The payment for service once subscribed to by the subscriber is not refundable and any amount paid shall stand appropriated. Refund if any will be at the sole discretion of Trust Immigration Consultant and it offers no guarantees whatsoever for the accuracy or timeliness of the refunds reaching the Customers card/bank accounts. All the payments made towards participating in any events are 100% non-refundable if refund is request is received within 90 days of the event date. 50% of total participation fee is refundable if refund request is received at least 91 days before the event date. Please note participation fee does not include cost towards accommodation during the event.
 

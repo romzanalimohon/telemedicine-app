@@ -1,13 +1,11 @@
-import 'dart:convert';
+
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:http/http.dart';
 import 'package:telemedecine_app/components/change_password.dart';
 import 'package:telemedecine_app/components/edit_profile.dart';
 import 'package:telemedecine_app/components/text_stile.dart';
-
-import 'package:http/http.dart' as http;
 
 
 
@@ -53,6 +51,9 @@ class _ProfileState extends State<Profile> {
                               borderRadius: BorderRadius.circular(100),
                               image: DecorationImage(
                                 image: new NetworkImage('https://cdn1.iconfinder.com/data/icons/proffesion/256/Businessman-512.png'),
+
+                                //image: NetworkImage(user.read('img').toString()),
+
                                 //image: NetworkImage(userdata.read('image').toString()),
                                 fit: BoxFit.cover,
                               )
@@ -60,6 +61,16 @@ class _ProfileState extends State<Profile> {
                         ),
                       ),
                     ),
+                    
+                    // Container(
+                    //   child: Image.file(
+                    //     File(userImage.read('img').toString()),
+                    //     height: 100,
+                    //     width: 100,
+                    //     fit: BoxFit.cover,
+                    //   ),
+                    // ),
+
 
                     ///doctors details
                     Padding(
@@ -86,7 +97,7 @@ class _ProfileState extends State<Profile> {
               child: Container(
                 height: size.height * .44,
                 width: size.width * .95,
-                color: Colors.black,
+                color: Colors.brown,
                 child: Column(
                   children: [
                     Padding(
@@ -94,7 +105,10 @@ class _ProfileState extends State<Profile> {
                       child: Container(
                         height: size.height * .05,
                         width: size.width * .8,
-                        color: Colors.white,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.white,
+                        ),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
@@ -114,7 +128,10 @@ class _ProfileState extends State<Profile> {
                       child: Container(
                         height: size.height * .05,
                         width: size.width * .8,
-                        color: Colors.white,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.white,
+                        ),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
@@ -185,7 +202,7 @@ class _ProfileState extends State<Profile> {
                             width: size.width * .4,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(50),
-                              color: Colors.brown,
+                              color: Colors.white10,
                             ),
                             child: Center(child: Text(
                               "Edit Profile", style: statusStile(),)),
@@ -240,7 +257,7 @@ class _ProfileState extends State<Profile> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          child: Text('Change Password', style: TextStyle(color: Colors.white),),
+                          child: Text('Change Password?', style: TextStyle(color: Colors.white),),
                         ),
                       ),
                     )

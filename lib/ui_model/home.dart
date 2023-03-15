@@ -61,11 +61,11 @@ class _HomePageState extends State<HomePage> {
             ),
             BottomNavigationBarItem(
                 icon: Icon(Icons.person),
-                label: 'profile',
+                label: 'Profile',
             ),
             BottomNavigationBarItem(
                 icon: Icon(Icons.settings),
-                label: 'settings',
+                label: 'Settings',
             ),
           ],
 
