@@ -21,6 +21,8 @@ class _ProfileState extends State<Profile> {
 
   final userdata = GetStorage();
 
+  get image => userdata.read('image');
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery
@@ -50,7 +52,7 @@ class _ProfileState extends State<Profile> {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(100),
                               image: DecorationImage(
-                                image: new NetworkImage('https://cdn1.iconfinder.com/data/icons/proffesion/256/Businessman-512.png'),
+                                image: new NetworkImage("https://api.ticonsultancy.co.uk/uploads/studentsphoto/$image"),
 
                                 //image: NetworkImage(user.read('img').toString()),
 
@@ -61,15 +63,6 @@ class _ProfileState extends State<Profile> {
                         ),
                       ),
                     ),
-                    
-                    // Container(
-                    //   child: Image.file(
-                    //     File(userImage.read('img').toString()),
-                    //     height: 100,
-                    //     width: 100,
-                    //     fit: BoxFit.cover,
-                    //   ),
-                    // ),
 
 
                     ///doctors details

@@ -1,11 +1,9 @@
-import 'dart:convert';
 import 'package:path/path.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
-import 'package:intl/intl.dart';
 import 'package:telemedecine_app/components/global_variable.dart';
 final userdata = GetStorage();
 class EditProfile extends StatefulWidget {
@@ -18,7 +16,6 @@ class EditProfile extends StatefulWidget {
 class _EditProfileState extends State<EditProfile> {
 
 
-  final userImage = GetStorage();
 
 
   TextEditingController addressController = TextEditingController()..text = userdata.read('address');
@@ -66,7 +63,7 @@ class _EditProfileState extends State<EditProfile> {
     request.files.add(multipart);
     print(image);
 
-
+    print(multipart);
 
     var response = await request.send();
 

@@ -60,6 +60,7 @@ class LoginPageState extends State<LoginPage> {
 
 
         print(data['studentprofile']['address']);
+        print(data['studentprofile']['image']);
 
 
         print(data['Token'].toString());
@@ -82,7 +83,6 @@ class LoginPageState extends State<LoginPage> {
         userdata.write('id', data['student']['id']);
         userdata.write('email', data['student']['email']);
         userdata.write('name', data['student']['name']);
-        userdata.write('image', data['student']['image']);
         userdata.write('mobile', data['student']['mobile']);
         userdata.write('status', data['student']['status']);
 
