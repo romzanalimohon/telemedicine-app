@@ -30,6 +30,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  pusher_websocket_flutter:
+  push_notification:
+  notifications:
+  awesome_notifications:
+  flutter_local_notifications:
 
 
 
@@ -38,15 +43,22 @@ dependencies:
   cupertino_icons: ^1.0.2
   http: ^0.13.5
   google_fonts: ^4.0.3
-  agora_uikit: ^1.1.2
+#  agora_uikit: ^1.1.2
   get:
-  wakelock:
-  agora_rtc_engine:
+#  wakelock:
+#  agora_rtc_engine:
   wc_form_validators: ^1.0.0
   shared_preferences:
   get_storage: ^2.0.3
   image_picker: ^0.8.6+4
   intl: ^0.18.0
+  flutter_launcher_icons:
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/icon.png"
+
 
 dev_dependencies:
   flutter_test:

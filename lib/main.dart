@@ -1,6 +1,9 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pusher_websocket_flutter/pusher.dart';
 import 'package:telemedecine_app/authentication_page/login.dart';
 import 'package:telemedecine_app/ui_model/home.dart';
 import 'package:get/get.dart';
@@ -27,22 +30,37 @@ class MySplashApp extends StatefulWidget {
 class MySplashAppState extends State<MySplashApp> {
 
 
+
+
+
+
   final userdata = GetStorage();
 
   
 
   static const String KEYLOGIN = 'login';
 
+
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+
+
+
+
     //whereToGo();
 
     userdata.writeIfNull('isLogged', false);
     Future.delayed(Duration.zero, () async{
       checkIfLogged();
     });
+
+
+
+
+
   }
 
   @override
@@ -93,6 +111,15 @@ class MySplashAppState extends State<MySplashApp> {
 
   void checkIfLogged() {
     userdata.read('isLogged') ? Get.offAll(()=> HomePage()) : Get.offAll(()=> LoginPage());
+
+
+
+
   }
+
+
+
+
+
 
 }
