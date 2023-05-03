@@ -1,5 +1,6 @@
 
 
-const channelId = "test";
+
+const channelId = "channel";
 const appId = "4d7467fcc77841fea7d25cde32798890";
-const token = "007eJxTYEhS8kiPP7TY+/7T6t1cm7PXNtcFrHj+dtr14D+Oh+7Lt9YrMJikmJuYmaclJ5ubW5gYpqUmmqcYmSanpBobmVtaWFga2EcqpjQEMjJcf+vAxMgAgSA+C0NJanEJAwMA1VshHg==";
+const token = "007eJxTYPC6w8FaJGxt/u1u3IU30Yfv8iQmfvJbb3Z/16cim/CzG/IUGExSzE3MzNOSk83NLUwM01ITzVOMTJNTUo2NzC0tLCwNXq0JSGkIZGQwN/rPzMgAgSA+O0NyRmJeXmoOAwMA78chrQ==";

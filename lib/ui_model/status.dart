@@ -1,10 +1,7 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:telemedecine_app/components/global_variable.dart';
 import 'package:telemedecine_app/components/text_stile.dart';
-import 'package:http/http.dart' as http;
 
 class Status extends StatefulWidget {
   const Status({Key? key}) : super(key: key);

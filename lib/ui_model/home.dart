@@ -1,11 +1,10 @@
 
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:http/http.dart' as http;
-import 'package:pusher_websocket_flutter/pusher.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
+import 'package:telemedecine_app/authentication_page/login.dart';
 import 'package:telemedecine_app/components/app_bar.dart';
 import 'package:telemedecine_app/ui_model/doctor_list.dart';
 import 'package:telemedecine_app/ui_model/profile.dart';
@@ -24,20 +23,37 @@ class _HomePageState extends State<HomePage> {
 
   final userdata = GetStorage();
 
-  late Channel _channel;
+  //late Channel _channel;
   String user_name = '';
-  late FlutterLocalNotificationsPlugin localNotification;
+  //late FlutterLocalNotificationsPlugin localNotification;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _initPusher();
-    var androidInitialize = new AndroidInitializationSettings('ic_launcher');
-    var initializationSettings = new InitializationSettings(android: androidInitialize);
-    localNotification = new FlutterLocalNotificationsPlugin();
-    localNotification.initialize(initializationSettings);
 
+
+
+    //_initPusher();
+    // var androidInitialize = new AndroidInitializationSettings('ic_launcher');
+    // var initializationSettings = new InitializationSettings(android: androidInitialize);
+    // localNotification = new FlutterLocalNotificationsPlugin();
+    // localNotification.initialize(initializationSettings);
+
+
+
+
+    userdata.write('isLogged', true);
+
+
+
+    OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
+
+    OneSignal.shared.setAppId("c939283c-b6eb-4544-abc1-84434531b0e9");
+
+    OneSignal.shared.promptUserForPushNotificationPermission().then((accepted) {
+      print("Accepted permission: $accepted");
+    });
 
 
 
@@ -110,62 +126,79 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Future<void> _initPusher() async{
-    try{
-      await Pusher.init('fb48880689a60e318188', PusherOptions(cluster: 'ap2'));
-    }catch(e){
-      print(e);
-    }
+  // Future<void> _initPusher() async{
+  //   try{
+  //     await Pusher.init('fb48880689a60e318188', PusherOptions(cluster: 'ap2'));
+  //   }catch(e){
+  //     print(e);
+  //   }
+  //
+  //   //connect
+  //   Pusher.connect(
+  //       onConnectionStateChange: (value){
+  //         print(value.currentState);
+  //       },
+  //       onError: (err){
+  //         print(err.message);
+  //       }
+  //   );
+  //
+  //   //subscribe
+  //   _channel = await Pusher.subscribe('consultant-api');
+  //
+  //   //bind
+  //   _channel.bind('schedule', (onEvent) async{
+  //     //print(onEvent.data);
+  //     final data = json.decode(onEvent.data);
+  //     if(mounted){
+  //
+  //       setState(() {
+  //         //print((data['name']));
+  //         print(data);
+  //         print(data['student']);
+  //
+  //
+  //         print('student id: '+userdata.read('id').toString());
+  //
+  //         userdata.write('isLogged', true);
+  //
+  //
+  //         userdata.write('notificationId', data['student']);
+  //
+  //
+  //         user_name = data['message'];
+  //
+  //         // Get.snackbar(data['name'], data['species']);
+  //
+  //
+  //         if(userdata.read('notificationId').toString() == userdata.read('id').toString()){
+  //           var androidDetails = new AndroidNotificationDetails(
+  //               "channelId",
+  //               "local notification"
+  //               "this is description",
+  //               importance: Importance.high
+  //           );
+  //           var generalNotificationDetails = new NotificationDetails(
+  //               android: androidDetails
+  //           );
+  //
+  //
+  //           localNotification.show(0, data['title'], data['message'], generalNotificationDetails);
+  //
+  //         }
+  //
+  //
+  //       });
+  //     }
+  //
+  //   });
+  //
+  // }
 
-    //connect
-    Pusher.connect(
-        onConnectionStateChange: (value){
-          print(value.currentState);
-        },
-        onError: (err){
-          print(err.message);
-        }
-    );
 
-    //subscribe
-    _channel = await Pusher.subscribe('consultant-api');
-
-    //bind
-    _channel.bind('schedule', (onEvent) async{
-      //print(onEvent.data);
-      final data = json.decode(onEvent.data);
-      if(mounted){
-
-        setState(() {
-          //print((data['name']));
-          print(data);
-          user_name = data['message'];
-
-          // Get.snackbar(data['name'], data['species']);
-
-
-
-
-          var androidDetails = new AndroidNotificationDetails(
-              "channelId",
-              "local notification",
-              "this is description",
-              importance: Importance.high
-          );
-          var generalNotificationDetails = new NotificationDetails(
-              android: androidDetails
-          );
-          localNotification.show(0, data['title'], data['message'], generalNotificationDetails);
-
-          // if(userdata.read('id') == data['student']){
-          //
-          // }
-
-        });
-      }
-
-    });
-
-  }
+  // void checkIfLogged() {
+  //   userdata.read('isLogged') ? Get.offAll(()=> HomePage()) : Get.offAll(()=> LoginPage());
+  //
+  // }
 
 }

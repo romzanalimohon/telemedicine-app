@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "366567746081",
+    "project_id": "consultancyapp-4f650",
+    "storage_bucket": "consultancyapp-4f650.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:366567746081:android:16632695da662359049160",
+        "android_client_info": {
+          "package_name": "com.xprtx.consultancy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "366567746081-he00jre68bvg4s17fun1c0fjoc0et06c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDc1pAUhWqFjFA7Icaq-XBO-CjgrR9fx2U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "366567746081-he00jre68bvg4s17fun1c0fjoc0et06c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

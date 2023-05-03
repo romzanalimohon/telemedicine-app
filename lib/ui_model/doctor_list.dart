@@ -1,8 +1,8 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:telemedecine_app/for_video_calling/page/index.dart';
 class DoctorList extends StatefulWidget {
   const DoctorList({Key? key}) : super(key: key);
 
@@ -91,7 +91,7 @@ class _DoctorListState extends State<DoctorList> {
                                   width: 70,
                                   child: GestureDetector(
                                     onTap: (){
-                                      //Navigator.push(context, MaterialPageRoute(builder: (context)=> IndexPage()));
+                                      Navigator.push(context, MaterialPageRoute(builder: (context)=> IndexPage()));
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(
